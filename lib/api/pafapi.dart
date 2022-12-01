@@ -1,0 +1,57 @@
+import 'package:dio/dio.dart';
+import 'package:paf_web/services/local_storage.dart';
+
+class PafApi {
+  //Intancia de dio
+  static Dio _dio = Dio();
+
+  static void configureDio() {
+    //Url api
+    _dio.options.baseUrl = "http://localhost:3000";
+
+    //Configuración headers
+    _dio.options.headers = {
+      'x-token': LocalStorage.prefs.getString('token') ?? '',
+    };
+  }
+
+  //Peticiones get
+  static Future httpGet(String path) async {
+    try {
+      final response = await _dio.get(path);
+      return response.data;
+    } catch (e) {
+      throw ('Error en el GET');
+    }
+  }
+
+  //Peticiones post
+  static Future httpPost(String path, Map<String, dynamic> data) async {
+    try {
+      final response = await _dio.post(path, data: data);
+      return response.data;
+    } catch (e) {
+      throw ('Error en el POST $e');
+    }
+  }
+
+  //Peticion put
+  static Future httpPut( String path, Map<String, dynamic> data ) async {
+    try {
+      final response = await _dio.put(path, data: data);
+      return response.data;
+    } catch (e) {
+      throw ('Error en el PUT');
+    }
+  }
+
+  //Peticion put
+  static Future httpDelete( String path, Map<String, dynamic> data ) async {
+    try {
+      final response = await _dio.delete(path, data: data);
+      return response.data;
+    } catch (e) {
+      throw ('Error en el DELETE $e');
+    }
+  }
+}
