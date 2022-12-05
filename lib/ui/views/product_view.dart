@@ -15,7 +15,7 @@ class ProductView extends StatefulWidget {
 }
 
 class _ProductViewState extends State<ProductView> {
-  final int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
 
   @override
   void initState() {
@@ -25,8 +25,7 @@ class _ProductViewState extends State<ProductView> {
 
   @override
   Widget build(BuildContext context) {
-    final products =
-        Provider.of<ProductProvider>(context).productList;
+    final products = Provider.of<ProductProvider>(context);
 
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -38,6 +37,11 @@ class _ProductViewState extends State<ProductView> {
               style: CustomLabels.tag,
             ),
             PaginatedDataTable(
+                onRowsPerPageChanged: (value) {
+                  setState(() {
+                    _rowsPerPage = value ?? 10;
+                  });
+                },
                 rowsPerPage: _rowsPerPage,
                 header: const Text(''),
                 actions: [
@@ -45,8 +49,8 @@ class _ProductViewState extends State<ProductView> {
                       onPressed: () => NavigationService.navigateTo(
                           Flurorouter.createProductRoute),
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(const Color(0xff3069af))),
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color(0xff3069af))),
                       child: Row(
                         children: [
                           const Icon(
@@ -61,24 +65,30 @@ class _ProductViewState extends State<ProductView> {
                         ],
                       ))
                 ],
-                columns: const [
-                  DataColumn(label: Expanded(
-                    child: Center(child: Text('Producto'))
-                  )),
-                  DataColumn(label: Expanded(
-                    child: Center(child: Text('Infografías'))
-                  )),
-                  DataColumn(label: Expanded(
-                    child: Center(child: Text('Estado'))
-                  )),
-                  DataColumn(label: Expanded(
-                    child: Center(child: Text('Creador'))
-                  )),
-                  DataColumn(label: Expanded(
-                    child: Center(child: Text('Info Producto'))
-                  )),
+                columns: [
+                  DataColumn(
+                      label: const Expanded(
+                          child: Center(child: Text('Producto'))),
+                      onSort: (columnIndex, _) {
+                        products.sort((product) => product.name);
+                      }),
+                  const DataColumn(
+                      label:
+                          Expanded(child: Center(child: Text('Infografías')))),
+                  const DataColumn(
+                      label: Expanded(child: Center(child: Text('Estado')))),
+                  DataColumn(
+                    label:
+                        const Expanded(child: Center(child: Text('Creador'))),
+                    onSort: (columnIndex, _) {
+                      products.sort((product) => product.user.name);
+                    },
+                  ),
+                  const DataColumn(
+                      label: Expanded(
+                          child: Center(child: Text('Info Producto')))),
                 ],
-                source: ProductsDTS(products, context))
+                source: ProductsDTS(products.productList, context))
           ],
         ));
   }

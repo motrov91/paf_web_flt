@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:paf_web/providers/brand_provider.dart';
 import 'package:paf_web/providers/category_provider.dart';
+import 'package:paf_web/providers/product_provider.dart';
 import 'package:paf_web/providers/users_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +34,7 @@ class DeleteDialog extends StatelessWidget {
           child: Center(
               child: Text(
             textHeader,
-            style: GoogleFonts.roboto(color: Colors.white),
+            style: GoogleFonts.roboto(color: Colors.white, fontSize: 14),
           ))),
       content: Text(
         'Una vez aceptes no podrás recuperar la información de $name',
@@ -70,7 +71,8 @@ class DeleteDialog extends StatelessWidget {
             }
 
             if (selectedDelete == 'PRODUCT') {
-              Provider.of<UsersProvider>(context, listen: false).deleteUser(id);
+              Provider.of<ProductProvider>(context, listen: false)
+                  .deleteProduct(id);
             }
 
             //Cierra el modal

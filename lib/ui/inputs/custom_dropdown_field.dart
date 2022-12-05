@@ -17,14 +17,6 @@ class _CustomDropbownFormFieldState extends State<CustomDropbownFormField> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UsersProvider>(context);
 
-    final List<String> roles = [
-      'SELECCIONE',
-      'SUPER ADMIN',
-      'ADMINISTRADOR',
-      'GERENTE',
-      'ASESOR'
-    ];
-
     return DropdownButtonFormField(
         //value: unique[0],
         validator: (value) =>
@@ -51,11 +43,10 @@ class _CustomDropbownFormFieldState extends State<CustomDropbownFormField> {
               Icons.account_box_outlined,
               color: Colors.white,
             )),
-        items: [
-          DropdownMenuItem(value:'1' , child: Text('SUPER ADMIN')),
-          DropdownMenuItem(value:'2' , child: Text('ADMINISTRADOR')),
-          DropdownMenuItem(value:'3' , child: Text('GERENTE')),
-          DropdownMenuItem(value:'4' , child: Text('ASESOR')),
+        items: const [
+          DropdownMenuItem(value: '1', child: Text('ADMINISTRADOR')),
+          DropdownMenuItem(value: '2', child: Text('GERENTE')),
+          DropdownMenuItem(value: '3', child: Text('ASESOR')),
         ]
         );
   }

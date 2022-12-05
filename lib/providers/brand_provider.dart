@@ -6,6 +6,7 @@ import 'package:paf_web/models/user.dart';
 
 class BrandProvider with ChangeNotifier {
   List<Brand> brandList = [];
+  bool ascending = true;
 
   getBrands() async {
     final data = await PafApi.httpGet('/brand/all-brand');
@@ -54,6 +55,21 @@ class BrandProvider with ChangeNotifier {
     await PafApi.httpDelete('/brand/delete-brand/$id', {});
 
     brandList.removeWhere((user) => user.id == id);
+
+    notifyListeners();
+  }
+
+  void sort<T>(Comparable<T> Function(Brand brand) getField) {
+    brandList.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+
+    ascending = !ascending;
 
     notifyListeners();
   }

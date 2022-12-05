@@ -15,6 +15,8 @@ class CategoriesView extends StatefulWidget {
 }
 
 class _CategoriesViewState extends State<CategoriesView> {
+  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+
   @override
   void initState() {
     super.initState();
@@ -24,7 +26,7 @@ class _CategoriesViewState extends State<CategoriesView> {
 
   @override
   Widget build(BuildContext context) {
-    final categories = Provider.of<CategoryProvider>(context).categoryList;
+    final categories = Provider.of<CategoryProvider>(context);
     final user = Provider.of<AuthProvider>(context).user;
 
     return Container(
@@ -36,47 +38,59 @@ class _CategoriesViewState extends State<CategoriesView> {
               'Clasificaciones',
               style: CustomLabels.tag,
             ),
-            Container(
-              child: PaginatedDataTable(
-                columns: [
-                  const DataColumn(label: Expanded(child: Center(child: Text('Clasificacion')))),
-                  const DataColumn(label: Expanded(child: Center(child: Text('Marca')))),
-                  DataColumn(label: (user != 1) ? Container()  : const Text('Acciones')),
-                ],
-                source: CategoriesDTS(categories, context),
-                header: const Text(''),
-                actions: [
-                  ( user!.rolId != 1 ) 
+            PaginatedDataTable(
+              rowsPerPage: _rowsPerPage,
+              onRowsPerPageChanged: (value) {
+                setState(() {
+                  _rowsPerPage = value ?? 10;
+                });
+              },
+              columns: [
+                const DataColumn(
+                    label:
+                        Expanded(child: Center(child: Text('Clasificacion')))),
+                DataColumn(
+                    label: const Expanded(child: Center(child: Text('Marca'))),
+                    onSort: (colIndex, _) {
+                      categories.sort((category) => category.brand.brand);
+                    }),
+                const DataColumn(
+                    label:
+                        Expanded(child: Center(child: const Text('Acciones')))),
+              ],
+              source: CategoriesDTS(categories.categoryList, context),
+              header: const Text(''),
+              actions: [
+                (user!.rolId != 1)
                     ? Container()
                     : TextButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color(0xff3069af))),
-                      onPressed: () {
-                        showModalBottomSheet(
-                          backgroundColor: Colors.transparent,
-                          context: context,
-                          builder: (_) => const CategoryModal(
-                            data: null,
-                          ),
-                        );
-                      },
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 14,
-                          ),
-                          const SizedBox(width: 3),
-                          Text(
-                            'Agregar',
-                            style: GoogleFonts.roboto(color: Colors.white),
-                          ),
-                        ],
-                      ))
-                ],
-              ),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color(0xff3069af))),
+                        onPressed: () {
+                          showModalBottomSheet(
+                            backgroundColor: Colors.transparent,
+                            context: context,
+                            builder: (_) => const CategoryModal(
+                              data: null,
+                            ),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 14,
+                            ),
+                            const SizedBox(width: 3),
+                            Text(
+                              'Agregar',
+                              style: GoogleFonts.roboto(color: Colors.white),
+                            ),
+                          ],
+                        ))
+              ],
             )
           ],
         ));

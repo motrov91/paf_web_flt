@@ -26,7 +26,7 @@ class _UsersViewState extends State<UsersView> {
 
   @override
   Widget build(BuildContext context) {
-    final users = Provider.of<UsersProvider>(context).usersList;
+    final users = Provider.of<UsersProvider>(context);
 
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -39,20 +39,24 @@ class _UsersViewState extends State<UsersView> {
             ),
             Container(
               child: PaginatedDataTable(
-                columns: const [
-                  DataColumn(label: Text('Nombre Completo')),
-                  DataColumn(label: Text('Correo Electrónico')),
-                  DataColumn(label: Text('Ciudad')),
-                  DataColumn(label: Text('Rol')),
-                  DataColumn(label: Text('Acciones')),
+                columns: [
+                  DataColumn(
+                      label: const Text('Nombre Completo'),
+                      onSort: (colIndex, _) {
+                        users.sort<String>((user) => user.name);
+                      }),
+                  const DataColumn(label: Text('Correo Electrónico')),
+                  const DataColumn(label: Text('Ciudad')),
+                  const DataColumn(label: Text('Rol')),
+                  const DataColumn(label: Text('Acciones')),
                 ],
-                source: UsersDatasource(users, context),
+                source: UsersDatasource(users.usersList, context),
                 header: const Text(''),
                 actions: [
                   TextButton(
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(const Color(0xff3069af))),
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color(0xff3069af))),
                       onPressed: () {
                         showModalBottomSheet(
                           backgroundColor: Colors.transparent,

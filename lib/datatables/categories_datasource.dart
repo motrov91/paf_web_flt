@@ -23,6 +23,7 @@ class CategoriesDTS extends DataTableSource {
       DataCell((user!.rolId != 1)
           ? Container()
           : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton( 
                     splashRadius: 17,

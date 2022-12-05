@@ -6,7 +6,12 @@ import 'package:paf_web/models/user.dart';
 
 class UsersProvider with ChangeNotifier {
   List<User> usersList = [];
+  bool ascending = true;
   String rolId = '';
+
+  UsersProvider() {
+    getUsers();
+  }
 
   getUsers() async {
     final resp = await PafApi.httpGet('/user/all-users');
@@ -69,6 +74,21 @@ class UsersProvider with ChangeNotifier {
     await PafApi.httpDelete('/user/delete-user/$id', {});
 
     usersList.removeWhere((user) => user.id == id);
+
+    notifyListeners();
+  }
+
+  void sort<T>(Comparable<T> Function(User user) getField) {
+    usersList.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+
+    ascending = !ascending;
 
     notifyListeners();
   }

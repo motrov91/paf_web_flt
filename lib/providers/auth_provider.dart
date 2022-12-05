@@ -73,7 +73,7 @@ class AuthProvider with ChangeNotifier {
   logout() {
     LocalStorage.prefs.remove('token');
     authStatus = AuthStatus.notAuthenticated;
-    NavigationService.navigateTo(Flurorouter.loginRouter);
+    NavigationService.replaceTo(Flurorouter.loginRouter);
     notifyListeners();
   }
 }

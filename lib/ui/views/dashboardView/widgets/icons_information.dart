@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paf_web/providers/brand_provider.dart';
 import 'package:paf_web/providers/users_provider.dart';
 import 'package:paf_web/ui/views/dashboardView/widgets/item_info_main.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,8 @@ class IconsInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final users = Provider.of<UsersProvider>(context, listen: false).usersList;
+    final brand = Provider.of<BrandProvider>(context, listen: false).brandList;
+
 
     return Container(
       width: double.infinity,
@@ -28,8 +31,10 @@ class IconsInformation extends StatelessWidget {
               width: 1,
               height: 60,
             ),
-          const ItemInfoMain(
-              image: '/marcas_icon.png', title: 'Marcas', count: 0),
+          ItemInfoMain(
+              image: '/marcas_icon.png',
+              title: 'Marcas',
+              count: (brand == null) ? 0 : brand.length),
           if (size.width > 1190)
             Container(
               color: Colors.grey.withOpacity(0.1),

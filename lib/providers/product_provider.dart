@@ -23,6 +23,7 @@ class ProductProvider with ChangeNotifier {
 
   //products list from db
   List<Product> productList = [];
+  bool ascending = true;
 
   void load(String label, dynamic value) {
     data[label] = value;
@@ -144,11 +145,34 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future deleteProduct(int id) async {
+    await PafApi.httpDelete('/product/delete-product/$id', {});
+
+    productList.removeWhere((product) => product.id == id);
+
+    notifyListeners();
+  }
+
   bool validateForm() {
     if (formKey.currentState!.validate()) {
       return true;
     } else {
       return false;
     }
+  }
+
+  void sort<T>(Comparable<T> Function(Product product) getField) {
+    productList.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+
+    ascending = !ascending;
+
+    notifyListeners();
   }
 }

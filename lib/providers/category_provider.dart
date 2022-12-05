@@ -6,6 +6,7 @@ import '../models/category.dart';
 
 class CategoryProvider with ChangeNotifier {
   List<Category> categoryList = [];
+  bool ascending = true;
 
   getCategories() async {
     final data = await PafApi.httpGet('/category/all-categories');
@@ -53,6 +54,21 @@ class CategoryProvider with ChangeNotifier {
     await PafApi.httpDelete('/category/delete-category/$id', {});
 
     categoryList.removeWhere((category) => category.id == id);
+    notifyListeners();
+  }
+
+  void sort<T>(Comparable<T> Function(Category category) getField) {
+    categoryList.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+
+    ascending = !ascending;
+
     notifyListeners();
   }
 }

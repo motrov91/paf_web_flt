@@ -4,6 +4,7 @@ import 'package:paf_web/models/product.dart';
 import 'package:paf_web/providers/auth_provider.dart';
 import 'package:paf_web/ui/buttons/custom_outlined_button.dart';
 import 'package:paf_web/ui/buttons/custom_outlined_button_stateProduct.dart';
+import 'package:paf_web/ui/dialogs/delete_dialog.dart';
 import 'package:paf_web/ui/modals/update_product.dart';
 import 'package:paf_web/ui/modals/update_status.dart';
 import 'package:provider/provider.dart';
@@ -78,16 +79,36 @@ class ProductsDTS extends DataTableSource {
             ),
           ),
           IconButton(
-            splashRadius: 13,
-            onPressed: () {
-              // showCupertinoModalPopup(
-              //   context: context,
-              //   builder: (_) => UpdateProductModal(product: products[index]),
-              // );
-            },
+            splashRadius: 17,
+            splashColor: Colors.grey,
+            hoverColor: Colors.grey.withOpacity(0.2),
+            onPressed: () {},
             icon: Icon(
               Icons.view_list_outlined,
-              color: Colors.blue[300],
+              color: Colors.grey,
+              size: 18,
+            ),
+          ),
+          IconButton(
+            splashRadius: 17,
+            splashColor: Colors.red,
+            hoverColor: Colors.red.withOpacity(0.2),
+            onPressed: () {
+              final dialog = DeleteDialog(
+                  id: product.id,
+                  name: product.name,
+                  textHeader:
+                      "¿Seguro desea eliminar el producto: ${product.name}?",
+                  selectedDelete: "PRODUCT");
+
+              showDialog(
+                context: context,
+                builder: (context) => dialog,
+              );
+            },
+            icon: Icon(
+              Icons.delete_outline,
+              color: Colors.red[300],
               size: 18,
             ),
           ),

@@ -13,7 +13,7 @@ class Sidebar extends StatelessWidget {
 
   //Metodo para centralizar la navegacion y el control del menú
   void navigateTo(String routeName) {
-    NavigationService.navigateTo(routeName);
+    NavigationService.replaceTo(routeName);
     SidebarMenuProvider.closeMenu();
   }
 

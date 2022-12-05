@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:paf_web/models/user.dart';
-import 'package:paf_web/providers/users_provider.dart';
 import 'package:paf_web/ui/dialogs/delete_dialog.dart';
 import 'package:paf_web/ui/labels/custom_labels.dart';
 import 'package:paf_web/ui/modals/user_modal.dart';
-import 'package:provider/provider.dart';
 
 class UsersDatasource extends DataTableSource {
   final List<User> users;

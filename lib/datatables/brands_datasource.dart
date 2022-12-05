@@ -33,6 +33,7 @@ class BrandsDTS extends DataTableSource {
       DataCell((user!.rolId != 1)
           ? const Text('')
           : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
                   child: IconButton(

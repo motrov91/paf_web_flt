@@ -16,7 +16,7 @@ class BrandView extends StatefulWidget {
 }
 
 class _BrandViewState extends State<BrandView> {
-  final int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _BrandViewState extends State<BrandView> {
 
   @override
   Widget build(BuildContext context) {
-    final brands = Provider.of<BrandProvider>(context).brandList;
+    final brands = Provider.of<BrandProvider>(context);
     final user = Provider.of<AuthProvider>(context, listen: false).user;
 
     return Container(
@@ -40,18 +40,32 @@ class _BrandViewState extends State<BrandView> {
               style: CustomLabels.tag,
             ),
             PaginatedDataTable(
-              columns: const [
+              onRowsPerPageChanged: (value) {
+                setState(() {
+                  _rowsPerPage = value ?? 10;
+                });
+              },
+              rowsPerPage: _rowsPerPage,
+              columns: [
                 DataColumn(
-                    label:
-                        Expanded(child: Center(child: Text('Nombre marca')))),
+                    label: const Expanded(
+                        child: Center(child: Text('Nombre marca'))),
+                    onSort: (colIndex, _) {
+                      brands.sort((brand) => brand.brand);
+                    }),
                 DataColumn(
-                    label: Expanded(child: Center(child: Text('Responsable')))),
-                DataColumn(label: Expanded(child: Center(child: Text('')))),
+                    label: const Expanded(
+                        child: Center(child: Text('Responsable'))),
+                    onSort: (colIndex, _) {
+                      brands.sort((brand) => brand.user.name);
+                    }),
+                const DataColumn(
+                    label: Expanded(child: Center(child: Text('Acciones')))),
               ],
-              source: BrandsDTS(brands, context),
+              source: BrandsDTS(brands.brandList, context),
               header: const Text(''),
               actions: [
-                ( user!.rolId == 1 )
+                (user!.rolId == 1)
                     ? TextButton(
                         style: ButtonStyle(
                             backgroundColor:
