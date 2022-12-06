@@ -46,17 +46,21 @@ class _BrandViewState extends State<BrandView> {
                 });
               },
               rowsPerPage: _rowsPerPage,
+              sortAscending: brands.ascending,
+              sortColumnIndex: brands.sortColumnIndex,
               columns: [
                 DataColumn(
                     label: const Expanded(
                         child: Center(child: Text('Nombre marca'))),
                     onSort: (colIndex, _) {
+                      brands.sortColumnIndex = colIndex;
                       brands.sort((brand) => brand.brand);
                     }),
                 DataColumn(
                     label: const Expanded(
                         child: Center(child: Text('Responsable'))),
                     onSort: (colIndex, _) {
+                      brands.sortColumnIndex = colIndex;
                       brands.sort((brand) => brand.user.name);
                     }),
                 const DataColumn(

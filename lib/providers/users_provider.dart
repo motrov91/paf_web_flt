@@ -7,6 +7,7 @@ import 'package:paf_web/models/user.dart';
 class UsersProvider with ChangeNotifier {
   List<User> usersList = [];
   bool ascending = true;
+  int? sortColumnIndex;
   String rolId = '';
 
   UsersProvider() {

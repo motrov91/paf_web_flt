@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paf_web/models/category.dart';
 import 'package:paf_web/providers/brand_provider.dart';
 import 'package:paf_web/providers/category_provider.dart';
+import 'package:paf_web/services/notifications_service.dart';
 import 'package:paf_web/ui/buttons/custom_outlined_button.dart';
 import 'package:paf_web/ui/inputs/custom_inputs.dart';
 import 'package:paf_web/ui/labels/custom_labels.dart';
@@ -38,7 +39,6 @@ class _CategoryModalState extends State<CategoryModal> {
 
   @override
   Widget build(BuildContext context) {
-
     final brands = Provider.of<BrandProvider>(context).brandList;
 
     return Container(
@@ -123,16 +123,29 @@ class _CategoryModalState extends State<CategoryModal> {
                   height: 10,
                 ),
                 CustomOutlinedButton(
-                  onPressed: () {
-                    final categoryProvider = Provider.of<CategoryProvider>(context, listen: false);
+                  onPressed: () async {
+                    final categoryProvider =
+                        Provider.of<CategoryProvider>(context, listen: false);
 
-                    if (id == null) {
-                      categoryProvider.addCategoty(name, brandId);
-                    } else {
-                      categoryProvider.updateCategory(id!, name, brandId);
+                    try {
+                      if (id == null) {
+                        await categoryProvider.addCategoty(name, brandId);
+                        NotificationsService.showSnackbarSuccess(
+                            '$name creada con exito');
+                      } else {
+                        await categoryProvider.updateCategory(
+                            id!, name, brandId);
+                        NotificationsService.showSnackbarSuccess(
+                            '$name actualizada exitosamente');
+                      }
+
+                      Navigator.of(context).pop();
+                    } catch (e) {
+                      Navigator.of(context).pop();
+
+                      NotificationsService.showSnackbarError(
+                          'No se pudo crear la clasificación');
                     }
-
-                    Navigator.of(context).pop();
                   },
                   text: (id != null) ? 'Modificar' : 'Crear',
                   isFilled: true,
@@ -152,5 +165,4 @@ class _CategoryModalState extends State<CategoryModal> {
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20), topRight: Radius.circular(20)),
       boxShadow: [BoxShadow(color: Colors.black26)]);
-
 }

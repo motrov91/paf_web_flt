@@ -37,57 +37,58 @@ class _UsersViewState extends State<UsersView> {
               'Usuarios',
               style: CustomLabels.tag,
             ),
-            Container(
-              child: PaginatedDataTable(
-                columns: [
-                  DataColumn(
-                      label: const Text('Nombre Completo'),
-                      onSort: (colIndex, _) {
-                        users.sort<String>((user) => user.name);
-                      }),
-                  const DataColumn(label: Text('Correo Electrónico')),
-                  const DataColumn(label: Text('Ciudad')),
-                  const DataColumn(label: Text('Rol')),
-                  const DataColumn(label: Text('Acciones')),
-                ],
-                source: UsersDatasource(users.usersList, context),
-                header: const Text(''),
-                actions: [
-                  TextButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color(0xff3069af))),
-                      onPressed: () {
-                        showModalBottomSheet(
-                          backgroundColor: Colors.transparent,
-                          context: context,
-                          builder: (_) => UserModal(
-                            user: null,
-                          ),
-                        );
-                      },
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 14,
-                          ),
-                          const SizedBox(width: 3),
-                          Text(
-                            'Agregar',
-                            style: GoogleFonts.roboto(color: Colors.white),
-                          ),
-                        ],
-                      ))
-                ],
-                rowsPerPage: _rowsPerPage,
-                onRowsPerPageChanged: (value) {
-                  setState(() {
-                    _rowsPerPage = value ?? 10;
-                  });
-                },
-              ),
+            PaginatedDataTable(
+              sortAscending: users.ascending,
+              sortColumnIndex: users.sortColumnIndex,
+              columns: [
+                DataColumn(
+                    label: const Text('Nombre Completo'),
+                    onSort: (colIndex, _) {
+                      users.sortColumnIndex = colIndex;
+                      users.sort<String>((user) => user.name);
+                    }),
+                const DataColumn(label: Text('Correo Electrónico')),
+                const DataColumn(label: Text('Ciudad')),
+                const DataColumn(label: Text('Rol')),
+                const DataColumn(label: Text('Acciones')),
+              ],
+              source: UsersDatasource(users.usersList, context),
+              header: const Text(''),
+              actions: [
+                TextButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(const Color(0xff3069af))),
+                    onPressed: () {
+                      showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (_) => UserModal(
+                          user: null,
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 14,
+                        ),
+                        const SizedBox(width: 3),
+                        Text(
+                          'Agregar',
+                          style: GoogleFonts.roboto(color: Colors.white),
+                        ),
+                      ],
+                    ))
+              ],
+              rowsPerPage: _rowsPerPage,
+              onRowsPerPageChanged: (value) {
+                setState(() {
+                  _rowsPerPage = value ?? 10;
+                });
+              },
             )
           ],
         ));

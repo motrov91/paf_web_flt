@@ -7,6 +7,7 @@ import '../models/category.dart';
 class CategoryProvider with ChangeNotifier {
   List<Category> categoryList = [];
   bool ascending = true;
+  int? sortColumnIndex;
 
   getCategories() async {
     final data = await PafApi.httpGet('/category/all-categories');
@@ -23,31 +24,43 @@ class CategoryProvider with ChangeNotifier {
 
     final data = {"name": name, "brandId": brandID};
 
-    //Petición http
-    final response = await PafApi.httpPost('/category/add-category', data);
+    try {
+      //Petición http
+      final response = await PafApi.httpPost('/category/add-category', data);
 
-    final newResponse = Category.fromMap(response);
+      final newResponse = Category.fromMap(response);
 
-    categoryList.add(newResponse);
+      categoryList.add(newResponse);
 
-    notifyListeners();
+      notifyListeners();    
+    } catch (e) {
+      throw "Error al crear la categoria";
+    }
+
+    
   }
 
   Future updateCategory(String id, String name, String brandId) async {
     final data = {"id": id, "name": name, "brandId": int.parse(brandId)};
 
-    await PafApi.httpPut('/category/update-category/$id', data);
+    try {
+      await PafApi.httpPut('/category/update-category/$id', data);
 
-    categoryList = categoryList.map((e) {
-      if (e.id.toString() != id) return e;
+      categoryList = categoryList.map((e) {
+        if (e.id.toString() != id) return e;
 
-      e.name = name;
-      e.brandId = int.parse(brandId);
+        e.name = name;
+        e.brandId = int.parse(brandId);
 
-      return e;
-    }).toList();
+        return e;
+      }).toList();
 
-    notifyListeners();
+      notifyListeners();
+    } catch (e) {
+      throw "Error al momento de actualizar la categoria";
+    }
+
+    
   }
 
   Future deleteCategory(int id) async {

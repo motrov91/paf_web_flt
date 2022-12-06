@@ -37,6 +37,8 @@ class _ProductViewState extends State<ProductView> {
               style: CustomLabels.tag,
             ),
             PaginatedDataTable(
+                sortAscending: products.ascending,
+                sortColumnIndex: products.columnIndex,
                 onRowsPerPageChanged: (value) {
                   setState(() {
                     _rowsPerPage = value ?? 10;
@@ -70,6 +72,7 @@ class _ProductViewState extends State<ProductView> {
                       label: const Expanded(
                           child: Center(child: Text('Producto'))),
                       onSort: (columnIndex, _) {
+                        products.columnIndex = columnIndex;
                         products.sort((product) => product.name);
                       }),
                   const DataColumn(
@@ -81,6 +84,7 @@ class _ProductViewState extends State<ProductView> {
                     label:
                         const Expanded(child: Center(child: Text('Creador'))),
                     onSort: (columnIndex, _) {
+                      products.columnIndex = columnIndex;
                       products.sort((product) => product.user.name);
                     },
                   ),

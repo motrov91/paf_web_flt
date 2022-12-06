@@ -7,6 +7,7 @@ import 'package:paf_web/models/user.dart';
 class BrandProvider with ChangeNotifier {
   List<Brand> brandList = [];
   bool ascending = true;
+  int? sortColumnIndex;
 
   getBrands() async {
     final data = await PafApi.httpGet('/brand/all-brand');

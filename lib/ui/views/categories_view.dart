@@ -40,6 +40,8 @@ class _CategoriesViewState extends State<CategoriesView> {
             ),
             PaginatedDataTable(
               rowsPerPage: _rowsPerPage,
+              sortAscending: categories.ascending,
+              sortColumnIndex: categories.sortColumnIndex,
               onRowsPerPageChanged: (value) {
                 setState(() {
                   _rowsPerPage = value ?? 10;
@@ -52,11 +54,12 @@ class _CategoriesViewState extends State<CategoriesView> {
                 DataColumn(
                     label: const Expanded(child: Center(child: Text('Marca'))),
                     onSort: (colIndex, _) {
+                      categories.sortColumnIndex = colIndex;
                       categories.sort((category) => category.brand.brand);
                     }),
                 const DataColumn(
                     label:
-                        Expanded(child: Center(child: const Text('Acciones')))),
+                        Expanded(child: Center(child: Text('Acciones')))),
               ],
               source: CategoriesDTS(categories.categoryList, context),
               header: const Text(''),

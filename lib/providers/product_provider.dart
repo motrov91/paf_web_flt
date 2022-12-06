@@ -24,6 +24,7 @@ class ProductProvider with ChangeNotifier {
   //products list from db
   List<Product> productList = [];
   bool ascending = true;
+  int? columnIndex;
 
   void load(String label, dynamic value) {
     data[label] = value;
