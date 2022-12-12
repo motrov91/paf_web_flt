@@ -25,16 +25,17 @@ class DashboardView extends StatelessWidget {
                   style: CustomLabels.tag,
                 ),
                 const SizedBox(height: 10),
-                IconsInformation(),
+                const IconsInformation(),
                 const SizedBox(height: 10),
                 const ReportsInformation(),
                 const SizedBox(height: 10),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: const SizedBox(
+                  child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
                       width: 150,
                       height: 150,
-                      child: Image(image: AssetImage('./logo.png'))),
+                      child: const Image(image: AssetImage('./logo.png'))),
                 )
               ],
             )
