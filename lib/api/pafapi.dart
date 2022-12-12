@@ -3,7 +3,7 @@ import 'package:paf_web/services/local_storage.dart';
 
 class PafApi {
   //Intancia de dio
-  static Dio _dio = Dio();
+  static final Dio _dio = Dio();
 
   static void configureDio() {
     //Url api

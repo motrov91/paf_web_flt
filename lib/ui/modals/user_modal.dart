@@ -198,10 +198,12 @@ class _UserModalState extends State<UserModal> {
                                     password, repeat_password, cargo);
                                 NotificationsService.showSnackbarSuccess(
                                     "Producto creado con exito");
+                                if (!mounted) return;
                                 Navigator.of(context).pop();
                               } catch (e) {
                                 NotificationsService.showSnackbarError(
                                     'No se pudo actualizar el usuario');
+                                if (!mounted) return;
                                 Navigator.of(context).pop();
                               }
                             } else {
@@ -212,6 +214,7 @@ class _UserModalState extends State<UserModal> {
 
                                 NotificationsService.showSnackbarSuccess(
                                     'Usuario actualizado con exito');
+                                if (!mounted) return;
                                 Navigator.of(context).pop();
                               } catch (e) {
                                 Navigator.of(context).pop();
@@ -220,8 +223,6 @@ class _UserModalState extends State<UserModal> {
                                     "No se pudo actualizar el usuario");
                               }
                             }
-
-                            
                           },
                           text: (id == null) ? 'Agregar' : 'Actualizar',
                           isFilled: true,

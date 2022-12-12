@@ -9,8 +9,6 @@ class ReportsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final size = MediaQuery.of(context).size;
-
     return Container(
       width: 300,
       height: 300,
@@ -48,7 +46,7 @@ class ReportsButton extends StatelessWidget {
                 )),
               ),
 
-              CustomReportNavButton(text: 'Ver Reportes')
+                const CustomReportNavButton(text: 'Ver Reportes')
             ],
           )
         ],
@@ -62,7 +60,7 @@ class ReportsButton extends StatelessWidget {
   );
 
   BoxDecoration _buildDecoration() => BoxDecoration(
-    color: Color(0xff003cbe),
+      color: const Color(0xff003cbe),
     borderRadius: BorderRadius.circular(10)
   );
 }

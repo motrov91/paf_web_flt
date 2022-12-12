@@ -16,7 +16,6 @@ class _DashboardLayoutState extends State<DashboardLayout>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     SidebarMenuProvider.menuController = AnimationController(

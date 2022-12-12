@@ -63,7 +63,7 @@ class _UsersViewState extends State<UsersView> {
                       showModalBottomSheet(
                         backgroundColor: Colors.transparent,
                         context: context,
-                        builder: (_) => UserModal(
+                        builder: (_) => const UserModal(
                           user: null,
                         ),
                       );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:paf_web/ui/labels/custom_labels.dart';
 
 class ItemInfoMain extends StatelessWidget {
   final String title;
@@ -18,7 +17,7 @@ class ItemInfoMain extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               width: 20,
               height: 20,
               child: Image(

@@ -13,12 +13,6 @@ class CustomReportNavButton extends StatelessWidget {
       alignment: Alignment.center,
       child: OutlinedButton(
         onPressed: () {},
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Text(text, style: GoogleFonts.roboto(
-            color: const Color(0xff000000), fontWeight: FontWeight.bold, fontSize: 13
-          )),
-        ),
         style: ButtonStyle(
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
@@ -28,6 +22,14 @@ class CustomReportNavButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all(
             Colors.white
           )
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Text(text,
+              style: GoogleFonts.roboto(
+                  color: const Color(0xff000000),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13)),
         ),
       ),
     );

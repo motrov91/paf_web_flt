@@ -29,6 +29,13 @@ class DashboardView extends StatelessWidget {
                 const SizedBox(height: 10),
                 const ReportsInformation(),
                 const SizedBox(height: 10),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: const SizedBox(
+                      width: 150,
+                      height: 150,
+                      child: Image(image: AssetImage('./logo.png'))),
+                )
               ],
             )
           ],

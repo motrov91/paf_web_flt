@@ -60,7 +60,7 @@ class AppState extends StatelessWidget {
           create: ((_) => ProductProvider()),
         ),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     );
   }
 }
@@ -80,8 +80,9 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         final authProvider = Provider.of<AuthProvider>(context);
 
-        if (authProvider.authStatus == AuthStatus.checking)
-          return SplashLayout();
+        if (authProvider.authStatus == AuthStatus.checking) {
+          return const SplashLayout();
+        }
 
         if (authProvider.authStatus == AuthStatus.authenticated) {
           return DashboardLayout(child: child!);

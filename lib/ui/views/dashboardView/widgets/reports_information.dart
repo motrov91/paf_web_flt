@@ -7,7 +7,7 @@ class ReportsInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 300,
       child: Row(

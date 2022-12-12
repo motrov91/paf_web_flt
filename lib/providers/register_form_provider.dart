@@ -17,10 +17,10 @@ class RegisterFormProvider with ChangeNotifier {
 
   validateForm() {
     if (formKey.currentState!.validate()) {
-      print('$name - $email - $password - $repeat_password - $cargo - $rolId');
+      //print('$name - $email - $password - $repeat_password - $cargo - $rolId');
       return true;
     } else {
-      print('invalid form');
+      //print('invalid form');
       return false;
     }
   }

@@ -4,7 +4,7 @@ import 'package:paf_web/models/http/productResponse.dart';
 import 'package:paf_web/models/product.dart';
 
 class ProductProvider with ChangeNotifier {
-  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String name = '';
   String reference = '';

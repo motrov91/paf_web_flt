@@ -26,7 +26,7 @@ class DeleteDialog extends StatelessWidget {
       titlePadding: const EdgeInsets.all(0),
       title: Container(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Colors.red,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(4),

@@ -8,6 +8,6 @@ class NoPageFoundHandlers {
     Provider.of<SidebarMenuProvider>(context!, listen: false)
         .setCurrentPageUrl('/404');
 
-    return NoPageFoundView();
+    return const NoPageFoundView();
   });
 }

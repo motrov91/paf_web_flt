@@ -193,12 +193,12 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
                 ),
                 Row(
                   children: [
-                    Container(
+                    SizedBox(
                       width: 150,
                       height: 130,
                       child: Stack(
                         children: [
-                          ClipOval(
+                          const ClipOval(
                             child: Image(
                               image: AssetImage('no-image.jpg'),
                             ),

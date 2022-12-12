@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:paf_web/models/category.dart';
 import 'package:paf_web/providers/auth_provider.dart';
 import 'package:paf_web/ui/dialogs/delete_dialog.dart';
@@ -69,14 +68,11 @@ class CategoriesDTS extends DataTableSource {
   }
 
   @override
-  // TODO: implement isRowCountApproximate
   bool get isRowCountApproximate => false;
 
   @override
-  // TODO: implement rowCount
   int get rowCount => categories.length;
 
   @override
-  // TODO: implement selectedRowCount
   int get selectedRowCount => 0;
 }

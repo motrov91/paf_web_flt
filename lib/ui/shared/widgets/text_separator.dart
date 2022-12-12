@@ -9,13 +9,13 @@ class TextSeparator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric( horizontal: 20 ),
-      margin: EdgeInsets.only( bottom: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.only(bottom: 5),
       child: Text(
         text,
         style: GoogleFonts.roboto(
             fontSize: 12,
-            color: Color(0xff6d757f),
+            color: const Color(0xff6d757f),
             fontWeight: FontWeight.bold 
           ),
       ),

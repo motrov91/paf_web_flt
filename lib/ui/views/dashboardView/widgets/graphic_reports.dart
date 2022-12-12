@@ -7,8 +7,6 @@ class GraphicReports extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final size = MediaQuery.of(context).size;
-
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(10),

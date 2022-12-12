@@ -11,13 +11,6 @@ class CustomOutlinedButtomStateProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () => onPressed(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-        child: Text(state == false ? 'Pendiente' : 'Aprobado',
-            style: GoogleFonts.roboto(
-                color: state == false ? Colors.red : Colors.green,
-                fontSize: 12)),
-      ),
       style: ButtonStyle(
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -27,7 +20,16 @@ class CustomOutlinedButtomStateProduct extends StatelessWidget {
                   ? Colors.red.withOpacity(0.2)
                   : Colors.green.withOpacity(0.2))),
           backgroundColor: MaterialStateProperty.all(
-              state == false ? Color(0xfffbe9e7) : Color(0xffe0f2f1))),
+              state == false
+              ? const Color(0xfffbe9e7)
+              : const Color(0xffe0f2f1))),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+        child: Text(state == false ? 'Pendiente' : 'Aprobado',
+            style: GoogleFonts.roboto(
+                color: state == false ? Colors.red : Colors.green,
+                fontSize: 12)),
+      ),
     );
   }
 }

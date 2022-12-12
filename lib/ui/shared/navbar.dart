@@ -46,7 +46,7 @@ class Navbar extends StatelessWidget {
             width: 20,
           ),
 
-          NavbarAvatar()
+          const NavbarAvatar()
         ],
       ),
     );

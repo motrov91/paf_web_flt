@@ -94,7 +94,7 @@ class Sidebar extends StatelessWidget {
               icon: Icons.person_pin_sharp,
               isActive: false,
               onPressed: () {}),
-          SizedBox(
+          const SizedBox(
             height: 90,
           ),
           ItemMenu(

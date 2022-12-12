@@ -13,7 +13,7 @@ class Features extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: cant.currentQuantityFeatures,
-      itemBuilder: (context, index) => _TextFormField(),
+      itemBuilder: (context, index) => const _TextFormField(),
     );
   }
 }

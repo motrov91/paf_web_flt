@@ -29,8 +29,8 @@ class CustomsInputs {
         hintText: hint,
         labelText: label,
         prefixIcon: Icon(icon, color: Colors.white),
-        labelStyle: TextStyle(color: Colors.white),
-        hintStyle: TextStyle(color: Colors.white),
+        labelStyle: const TextStyle(color: Colors.white),
+        hintStyle: const TextStyle(color: Colors.white),
         focusColor: Colors.white,
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
@@ -93,7 +93,7 @@ class CustomsInputs {
     return InputDecoration(
       labelText: labelText,
       labelStyle: const TextStyle(color: Colors.green),
-      focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.green, width: 2.0)
       ),
       border: OutlineInputBorder(

@@ -190,8 +190,6 @@ class CreateProduct extends StatelessWidget {
                                       NotificationsService.showSnackbarError(
                                           'No se pudo crear el producto');
                                     }
-                                    
-
                                   },
                                   color: Colors.green),
                             ],

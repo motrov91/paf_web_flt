@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:paf_web/ui/views/dashboardView/widgets/item_info_main.dart';
 
 class IconsInformation extends StatelessWidget {
+  const IconsInformation({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class IconsInformation extends StatelessWidget {
         crossAxisAlignment: WrapCrossAlignment.center,
         direction: Axis.horizontal,
         children: [
-          ItemInfoMain(
+          const ItemInfoMain(
             image: '/user_icon.png',
             title: 'Usuarios',
           ),
@@ -25,7 +27,7 @@ class IconsInformation extends StatelessWidget {
               width: 1,
               height: 60,
             ),
-          ItemInfoMain(
+          const ItemInfoMain(
               image: '/marcas_icon.png',
               title: 'Marcas'),
           if (size.width > 1190)
@@ -34,7 +36,7 @@ class IconsInformation extends StatelessWidget {
               width: 1,
               height: 60,
             ),
-          ItemInfoMain(
+          const ItemInfoMain(
             image: '/products_icon.png',
             title: 'Productos',
           ),

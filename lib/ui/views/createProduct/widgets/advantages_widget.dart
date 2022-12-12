@@ -20,7 +20,6 @@ class Advantages extends StatelessWidget {
 }
 
 class _TextFormFiel extends StatelessWidget {
-  const _TextFormFiel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class _TextFormFiel extends StatelessWidget {
             labelText: 'Ventaja',
             hintText: 'Agregue una ventaja de este producto',
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: const BorderSide(color: Colors.white),
               borderRadius: BorderRadius.circular(3),
             ),
             enabledBorder: OutlineInputBorder(

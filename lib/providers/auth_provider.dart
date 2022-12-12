@@ -36,8 +36,8 @@ class AuthProvider with ChangeNotifier {
 
       notifyListeners();
     }).catchError((e) {
-      print('ERROR $e');
-      NotificationsService.showSnackbarError('Email / Contraseña no válido');
+      NotificationsService.showSnackbarError(
+          'Email / Contraseña no válido, error: $e');
     });
   }
 
@@ -61,7 +61,7 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
       return true;
     } catch (e) {
-      print('Error en la verificacion del token de acceso $e');
+      //print('Error en la verificacion del token de acceso $e');
       authStatus = AuthStatus.notAuthenticated;
       notifyListeners();
 
