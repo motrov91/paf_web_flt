@@ -25,7 +25,7 @@ class DashboardView extends StatelessWidget {
                   style: CustomLabels.tag,
                 ),
                 const SizedBox(height: 10),
-                const IconsInformation(),
+                IconsInformation(),
                 const SizedBox(height: 10),
                 const ReportsInformation(),
                 const SizedBox(height: 10),

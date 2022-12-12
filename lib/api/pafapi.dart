@@ -21,7 +21,7 @@ class PafApi {
       final response = await _dio.get(path);
       return response.data;
     } catch (e) {
-      throw ('Error en el GET');
+      throw ('Error en el GET $e');
     }
   }
 

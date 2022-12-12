@@ -32,8 +32,8 @@ class ProductProvider with ChangeNotifier {
   }
 
   Future addProduct() async {
-    final Map<String, dynamic> data = {};
 
+    final Map<String, dynamic> data = {};
     data['name'] = name;
     data['reference'] = reference;
     data['url_video'] = url;
@@ -60,15 +60,27 @@ class ProductProvider with ChangeNotifier {
       notifyListeners();
     }
 
-    //Peticion HTTP
-    final response = await PafApi.httpPost('/product/add-product', data);
-    final newResponse = Product.fromMap(response);
+    try {
 
-    productList.add(newResponse);
+      //Peticion HTTP
+      final response = await PafApi.httpPost('/product/add-product', data);
+      final newResponse = Product.fromMap(response);
 
-    notifyListeners();
+      productList.add(newResponse);
 
-    return;
+      notifyListeners();
+
+      return;
+
+    } catch (e) {
+      throw "Error al crear el producto";
+    }
+    
+
+    
+
+    
+    
   }
 
   getProducts() async {

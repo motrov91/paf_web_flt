@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:paf_web/providers/counters_provider.dart';
 import 'package:paf_web/providers/product_provider.dart';
+import 'package:paf_web/services/notifications_service.dart';
 import 'package:paf_web/ui/buttons/custom_outlined_button.dart';
 import 'package:paf_web/ui/inputs/custom_inputs.dart';
 import 'package:paf_web/ui/labels/custom_labels.dart';
@@ -174,13 +175,22 @@ class CreateProduct extends StatelessWidget {
                               CustomOutlinedButton(
                                   isFilled: true,
                                   text: 'Guardar',
-                                  onPressed: () {
+                                  onPressed: () async {
                                     final isValid = product.validateForm();
-                                    if (isValid) {
-                                      product.addProduct();
+                                    try {
+                                      if (isValid) {
+                                        await product.addProduct();
+                                      }
+                                      counter.restartQuantity();
+                                      NotificationsService.showSnackbarSuccess(
+                                          'Producto creado con exito');
+                                      Navigator.of(context).pop();
+                                    } catch (e) {
+                                      Navigator.of(context).pop();
+                                      NotificationsService.showSnackbarError(
+                                          'No se pudo crear el producto');
                                     }
-                                    counter.restartQuantity();
-                                    Navigator.of(context).pop();
+                                    
 
                                   },
                                   color: Colors.green),

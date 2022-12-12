@@ -1,8 +1,10 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:paf_web/models/product.dart';
 import 'package:paf_web/providers/auth_provider.dart';
 import 'package:paf_web/providers/product_provider.dart';
+import 'package:paf_web/services/notifications_service.dart';
 import 'package:paf_web/ui/buttons/custom_outlined_button.dart';
 import 'package:paf_web/ui/inputs/custom_inputs.dart';
 import 'package:paf_web/ui/labels/custom_labels.dart';
@@ -189,39 +191,93 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
                 const SizedBox(
                   height: 30,
                 ),
-                TextFormField(
-                    initialValue: widget.product.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'El nombre del producto debe ser obligatorio';
-                      }
+                Row(
+                  children: [
+                    Container(
+                      width: 150,
+                      height: 130,
+                      child: Stack(
+                        children: [
+                          ClipOval(
+                            child: Image(
+                              image: AssetImage('no-image.jpg'),
+                            ),
+                          ),
+                          Positioned(
+                            right: 20,
+                            bottom: 5,
+                            child: Container(
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  border: Border.all(
+                                      color: Colors.white, width: 5)),
+                              child: FloatingActionButton(
+                                backgroundColor: const Color(0xff3069af),
+                                elevation: 0,
+                                onPressed: () async {
+                                  FilePickerResult? result = await FilePicker
+                                      .platform
+                                      .pickFiles(allowMultiple: false);
+                                  if (result != null) {
+                                    PlatformFile file = result.files.first;
 
-                      prod.load('name', value);
-
-                      return null;
-                    },
-                    style: const TextStyle(color: Colors.grey),
-                    decoration: CustomsInputs.updateInput(
-                        labelText: "Producto", color: Colors.blue)),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                    initialValue: widget.product.reference,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'El nombre del producto debe ser obligatorio';
-                      }
-
-                      prod.load('reference', value);
-
-                      return null;
-                    },
-                    style: const TextStyle(
-                      color: Colors.grey,
+                                    print(file.name);
+                                    print(file.bytes);
+                                  } else {}
+                                },
+                                child: const Icon(
+                                  Icons.camera_alt_outlined,
+                                  size: 18,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    decoration: CustomsInputs.updateInput(
-                        labelText: "Referencia", color: Colors.blue)),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          TextFormField(
+                              initialValue: widget.product.name,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'El nombre del producto debe ser obligatorio';
+                                }
+
+                                prod.load('name', value);
+
+                                return null;
+                              },
+                              style: const TextStyle(color: Colors.grey),
+                              decoration: CustomsInputs.updateInput(
+                                  labelText: "Producto", color: Colors.blue)),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                              initialValue: widget.product.reference,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'El nombre del producto debe ser obligatorio';
+                                }
+
+                                prod.load('reference', value);
+
+                                return null;
+                              },
+                              style: const TextStyle(
+                                color: Colors.grey,
+                              ),
+                              decoration: CustomsInputs.updateInput(
+                                  labelText: "Referencia", color: Colors.blue)),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -477,15 +533,27 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
                   height: 20,
                 ),
                 CustomOutlinedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     final isValid = prod.validateForm();
-                    if (isValid) {
-                      prod.load("id", id);
-                      prod.load("state", false);
-                      prod.load("userId", userId);
-                      prod.updateProduct(id);
+
+                    try {
+                      if (isValid) {
+                        prod.load("id", id);
+                        prod.load("state", false);
+                        prod.load("userId", userId);
+                        prod.updateProduct(id);
+
+                        NotificationsService.showSnackbarSuccess(
+                            "Producto actualizado con exito");
+                      }
+
+                      Navigator.of(context).pop();
+                    } catch (e) {
+                      NotificationsService.showSnackbarError(
+                          'No se pudo crear la clasificación');
+                      Navigator.of(context).pop();
                     }
-                    Navigator.of(context).pop();
+                    
                   },
                   text: "Actualizar",
                   isFilled: true,
@@ -554,11 +622,11 @@ class _ItemMarket extends StatelessWidget {
         TextFormField(
             maxLines: 3,
             maxLength: 300,
-            enabled: (user != null) 
-              ? (user.rolId != 1)
-                ? false
-                : true
-              : true,
+            enabled: (user != null)
+                ? (user.rolId != 1)
+                    ? false
+                    : true
+                : true,
             initialValue: (observation != "")
                 ? observation
                 : "Agregue un comentario al mercado",
@@ -622,11 +690,11 @@ class _ItemFeature extends StatelessWidget {
             initialValue: (featureObservation == "")
                 ? 'Agregue un comentario a esta caracteristica'
                 : featureObservation,
-            enabled: (user != null) 
-              ? (user.rolId != 1)
-                ? false
-                : true
-              : true,
+            enabled: (user != null)
+                ? (user.rolId != 1)
+                    ? false
+                    : true
+                : true,
             style: TextStyle(color: Colors.grey.withOpacity(0.8)),
             validator: (value) {
               if (value == null) {
@@ -693,11 +761,11 @@ class _ItemAdvantage extends StatelessWidget {
                 ? "Agregre un comentario a esta ventaja competitiva"
                 : observationAdventage,
             maxLines: 3,
-            enabled: (user != null) 
-              ? (user.rolId != 1)
-                ? false
-                : true
-              : true,
+            enabled: (user != null)
+                ? (user.rolId != 1)
+                    ? false
+                    : true
+                : true,
             style: TextStyle(color: Colors.grey.withOpacity(0.8)),
             validator: (value) {
               if (value == null) {

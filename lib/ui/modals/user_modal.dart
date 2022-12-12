@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paf_web/services/notifications_service.dart';
 import 'package:provider/provider.dart';
 
 import 'package:paf_web/providers/users_provider.dart';
@@ -22,15 +23,13 @@ class UserModal extends StatefulWidget {
 }
 
 class _UserModalState extends State<UserModal> {
-
-  String? id ;
+  String? id;
   String name = '';
   String email = '';
   String cargo = '';
   String rolId = '';
   String password = "";
   String repeat_password = "";
-
 
   @override
   void initState() {
@@ -47,8 +46,6 @@ class _UserModalState extends State<UserModal> {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return ChangeNotifierProvider(
       create: (_) => RegisterFormProvider(),
       child: Builder(builder: (context) {
@@ -120,47 +117,49 @@ class _UserModalState extends State<UserModal> {
                         const SizedBox(
                           height: 10,
                         ),
-                        (widget.user != null) 
-                          ? const SizedBox(height: 0,)
-                          : Column(
-                            children: [
-                              TextFormField(
-                                style: const TextStyle(color: Colors.white),
-                                decoration: CustomsInputs.inputDecorationRegister(
-                                    hint: 'Password',
-                                    label: 'Password',
-                                    icon: Icons.lock_outline),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Ingrese un password';
-                                  }
-                                },
-                                onChanged: (value) =>
-                                    password = value,
+                        (widget.user != null)
+                            ? const SizedBox(
+                                height: 0,
+                              )
+                            : Column(
+                                children: [
+                                  TextFormField(
+                                    style: const TextStyle(color: Colors.white),
+                                    decoration:
+                                        CustomsInputs.inputDecorationRegister(
+                                            hint: 'Password',
+                                            label: 'Password',
+                                            icon: Icons.lock_outline),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Ingrese un password';
+                                      }
+                                    },
+                                    onChanged: (value) => password = value,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  TextFormField(
+                                    style: const TextStyle(color: Colors.white),
+                                    decoration:
+                                        CustomsInputs.inputDecorationRegister(
+                                            hint: 'Repetir password',
+                                            label: 'Repetir password',
+                                            icon: Icons.lock_outline),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Repita el password';
+                                      }
+                                    },
+                                    onChanged: (value) =>
+                                        repeat_password = value,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              
-                              TextFormField(
-                                style: const TextStyle(color: Colors.white),
-                                decoration: CustomsInputs.inputDecorationRegister(
-                                    hint: 'Repetir password',
-                                    label: 'Repetir password',
-                                    icon: Icons.lock_outline),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Repita el password';
-                                  }
-                                },
-                                onChanged: (value) => repeat_password = value,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
-                        
                         TextFormField(
                           style: const TextStyle(color: Colors.white),
                           initialValue: widget.user?.cargo ?? '',
@@ -178,35 +177,53 @@ class _UserModalState extends State<UserModal> {
                         const SizedBox(
                           height: 10,
                         ),
-
                         const CustomDropbownFormField(),
-
                         const SizedBox(
                           height: 10,
                         ),
                         CustomOutlinedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             final userProvider = Provider.of<UsersProvider>(
                                 context,
                                 listen: false);
 
                             final isValid = registerProvider.validateForm();
-                            
+
                             if (!isValid) return;
 
                             if (id == null) {
                               //Create user
-                              userProvider.register(
-                                  name, email, password, repeat_password, cargo );
+                              try {
+                                await userProvider.register(name, email,
+                                    password, repeat_password, cargo);
+                                NotificationsService.showSnackbarSuccess(
+                                    "Producto creado con exito");
+                                Navigator.of(context).pop();
+                              } catch (e) {
+                                NotificationsService.showSnackbarError(
+                                    'No se pudo actualizar el usuario');
+                                Navigator.of(context).pop();
+                              }
                             } else {
                               //Update user
-                              userProvider.updateUser(
-                                  id!, name, email, cargo, rolId);
+                              try {
+                                await userProvider.updateUser(
+                                    id!, name, email, cargo, rolId);
+
+                                NotificationsService.showSnackbarSuccess(
+                                    'Usuario actualizado con exito');
+                                Navigator.of(context).pop();
+                              } catch (e) {
+                                Navigator.of(context).pop();
+
+                                NotificationsService.showSnackbarError(
+                                    "No se pudo actualizar el usuario");
+                              }
                             }
 
-                            Navigator.of(context).pop();
+                            
                           },
-                          text: (id == null) ? 'Agregar' : 'Actualizar' ,
+                          text: (id == null) ? 'Agregar' : 'Actualizar',
                           isFilled: true,
                           color: Colors.white,
                           textColor: const Color(0xff3069af),

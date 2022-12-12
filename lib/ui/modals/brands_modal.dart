@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paf_web/models/brand.dart';
 import 'package:paf_web/models/user.dart';
 import 'package:paf_web/providers/brand_provider.dart';
+import 'package:paf_web/services/notifications_service.dart';
 import 'package:paf_web/ui/buttons/custom_outlined_button.dart';
 import 'package:provider/provider.dart';
 
@@ -122,21 +123,36 @@ class _BrandModalState extends State<BrandModal> {
                       userId = value!.id.toString();
                       responsible = value.name;
                     }),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 CustomOutlinedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     final brandProvider =
                         Provider.of<BrandProvider>(context, listen: false);
 
-                    if (id == null) {
-                      brandProvider.addBrand(brand, userId);
-                    } else {
-                      brandProvider.updateBrand(id!, brand, userId, responsible);
+                    try {
+
+                      if (id == null) {
+                        await brandProvider.addBrand(brand, userId);
+                        NotificationsService.showSnackbarSuccess(
+                            'Marca creada correctamente');
+                      } else {
+                        await brandProvider.updateBrand(
+                            id!, brand, userId, responsible);
+                        NotificationsService.showSnackbarSuccess(
+                            'Marca actualizada correctamente');
+                      }
+
+                      Navigator.of(context).pop();
+
+                    } catch (e) {
+                      Navigator.of(context).pop();
+
+                      NotificationsService.showSnackbarError(
+                          'No se pudo crear la Marca');
                     }
 
-                    Navigator.of(context).pop();
                   },
                   text: (id != null) ? 'Modificar' : 'Crear',
                   isFilled: true,

@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:paf_web/api/pafapi.dart';
 import 'package:paf_web/models/brand.dart';
 import 'package:paf_web/models/http/brandResponse.dart';
-import 'package:paf_web/models/user.dart';
 
 class BrandProvider with ChangeNotifier {
   List<Brand> brandList = [];
   bool ascending = true;
   int? sortColumnIndex;
+
+  BrandProvider() {
+    getBrands();
+  }
 
   getBrands() async {
     final data = await PafApi.httpGet('/brand/all-brand');
@@ -24,12 +27,17 @@ class BrandProvider with ChangeNotifier {
 
     final data = {"brand": name, "userId": userID};
 
-    //Petición http
-    final response = await PafApi.httpPost('/brand/add-brand', data);
-    final newResponse = Brand.fromMap(response);
+    try {
+      //Petición http
+      final response = await PafApi.httpPost('/brand/add-brand', data);
+      final newResponse = Brand.fromMap(response);
 
-    brandList.add(newResponse);
-    notifyListeners();
+      brandList.add(newResponse);
+      notifyListeners();
+    } catch (e) {
+      throw "Error al crear la marca";
+    }
+
   }
 
   Future updateBrand(String id, String name, String userId, responsible) async {

@@ -3,13 +3,11 @@ import 'package:paf_web/ui/labels/custom_labels.dart';
 
 class ItemInfoMain extends StatelessWidget {
   final String title;
-  final int count;
   final String image;
 
   const ItemInfoMain(
       {super.key,
-      required this.title,
-      required this.count, required this.image});
+      required this.title, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +28,7 @@ class ItemInfoMain extends StatelessWidget {
             Text(title),
           ],
         ),
-        Text(
-          count.toString(),
-          style: CustomLabels.h1,
-        )
+        
       ]),
     );
   }

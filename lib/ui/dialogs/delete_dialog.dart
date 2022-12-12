@@ -4,6 +4,7 @@ import 'package:paf_web/providers/brand_provider.dart';
 import 'package:paf_web/providers/category_provider.dart';
 import 'package:paf_web/providers/product_provider.dart';
 import 'package:paf_web/providers/users_provider.dart';
+import 'package:paf_web/services/notifications_service.dart';
 import 'package:provider/provider.dart';
 
 class DeleteDialog extends StatelessWidget {
@@ -56,23 +57,54 @@ class DeleteDialog extends StatelessWidget {
             'Aceptar',
             style: TextStyle(color: Colors.red[400]),
           ),
-          onPressed: () {
+          onPressed: () async {
             if (selectedDelete == 'USER') {
-              Provider.of<UsersProvider>(context, listen: false).deleteUser(id);
+              try {
+                await Provider.of<UsersProvider>(context, listen: false)
+                    .deleteUser(id);
+                NotificationsService.showSnackbarSuccess(
+                    "Usuario eliminado correctamente");
+              } catch (e) {
+                NotificationsService.showSnackbarError(
+                    "No se pudo eliminar el usuario.");
+              }
             }
 
             if (selectedDelete == 'BRAND') {
-              Provider.of<BrandProvider>(context, listen: false)
-                  .deleteBrand(id);
+              try {
+                await Provider.of<BrandProvider>(context, listen: false)
+                    .deleteBrand(id);
+                NotificationsService.showSnackbarSuccess(
+                    "Marca eliminada correctamente");
+              } catch (e) {
+                NotificationsService.showSnackbarError(
+                    "No se pudo elimar el usuario.");
+              }
             }
 
             if (selectedDelete == 'CATEGORY') {
-              Provider.of<CategoryProvider>(context, listen: false).deleteCategory(id);
+              try {
+                Provider.of<CategoryProvider>(context, listen: false)
+                    .deleteCategory(id);
+                NotificationsService.showSnackbarSuccess(
+                    "Categoria eliminada correctamente");
+              } catch (e) {
+                NotificationsService.showSnackbarError(
+                    "No se pudo eliminar la categoria");
+              }
             }
 
             if (selectedDelete == 'PRODUCT') {
-              Provider.of<ProductProvider>(context, listen: false)
+              try {
+                Provider.of<ProductProvider>(context, listen: false)
                   .deleteProduct(id);
+                NotificationsService.showSnackbarSuccess(
+                    "Producto eliminado correctamente");
+              } catch (e) {
+                NotificationsService.showSnackbarError(
+                    "No se pudo eliminar el producto");
+              }
+              
             }
 
             //Cierra el modal

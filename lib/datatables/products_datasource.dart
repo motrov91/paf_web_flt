@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:paf_web/models/product.dart';
 import 'package:paf_web/providers/auth_provider.dart';
+import 'package:paf_web/services/notifications_service.dart';
 import 'package:paf_web/ui/buttons/custom_outlined_button.dart';
 import 'package:paf_web/ui/buttons/custom_outlined_button_stateProduct.dart';
 import 'package:paf_web/ui/dialogs/delete_dialog.dart';

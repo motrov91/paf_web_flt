@@ -84,7 +84,7 @@ class _CategoryModalState extends State<CategoryModal> {
                     name = value;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 DropdownButtonFormField(
@@ -111,15 +111,15 @@ class _CategoryModalState extends State<CategoryModal> {
                         )),
                     items: brands.map((e) {
                       return DropdownMenuItem(
-                        child: Text(e.brand),
                         value: e.id,
+                        child: Text(e.brand),
                       );
                     }).toList(),
                     onChanged: (value) {
                       initialVal = value.toString();
                       brandId = value.toString();
                     }),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 CustomOutlinedButton(
