@@ -28,7 +28,7 @@ class _MarketWidgetState extends State<MarketWidget> {
 class _DropMarket extends StatefulWidget {
   final int i;
 
-  const _DropMarket({super.key, required this.i});
+  const _DropMarket({required this.i});
 
   @override
   State<_DropMarket> createState() => _DropMarketState();

@@ -11,7 +11,7 @@ import 'package:paf_web/ui/labels/custom_labels.dart';
 import 'package:provider/provider.dart';
 
 class UpdateProductModal extends StatefulWidget {
-  final Product product;
+  final Product? product;
 
   const UpdateProductModal({super.key, required this.product});
 
@@ -86,73 +86,72 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
   @override
   void initState() {
     super.initState();
-    id = widget.product.id;
-    name = widget.product.name;
-    reference = widget.product.reference;
-    state = widget.product.state;
-    market1 = widget.product.market1 ?? '';
-    descriptionMarket1 = widget.product.descriptionMarket1 ?? '';
-    observation1 = widget.product.observations1 ?? '';
-    market2 = widget.product.market2 ?? '';
-    descriptionMarket2 = widget.product.descriptionMarket2 ?? '';
-    observation2 = widget.product.observations2 ?? '';
-    market3 = widget.product.market3 ?? '';
-    descriptionMarket3 = widget.product.descriptionMarket3 ?? '';
-    observation3 = widget.product.observations3 ?? '';
-    market4 = widget.product.market4 ?? '';
-    descriptionMarket4 = widget.product.descriptionMarket4 ?? '';
-    observation4 = widget.product.observations4 ?? '';
-    market5 = widget.product.market5 ?? '';
-    descriptionMarket5 = widget.product.descriptionMarket5 ?? '';
-    observation5 = widget.product.observations5 ?? '';
-    market6 = widget.product.market6 ?? '';
-    descriptionMarket6 = widget.product.descriptionMarket6 ?? '';
-    observation6 = widget.product.observations6 ?? '';
-    market7 = widget.product.market7 ?? '';
-    descriptionMarket7 = widget.product.descriptionMarket7 ?? '';
-    observation7 = widget.product.observations7 ?? '';
-    market8 = widget.product.market8 ?? '';
-    descriptionMarket8 = widget.product.descriptionMarket8 ?? '';
-    observation8 = widget.product.observations8 ?? '';
-    marcket9 = widget.product.market9 ?? '';
-    descriptionMarket9 = widget.product.descriptionMarket9 ?? '';
-    observation9 = widget.product.observations9 ?? '';
-    market10 = widget.product.market10 ?? '';
-    descriptionMarket10 = widget.product.descriptionMarket10 ?? '';
-    observation10 = widget.product.observations10 ?? '';
-    market11 = widget.product.market11 ?? '';
-    descriptionMarket11 = widget.product.descriptionMarket11 ?? '';
-    observation11 = widget.product.observations11 ?? '';
-    market12 = widget.product.market12 ?? '';
-    descriptionMarket12 = widget.product.descriptionMarket12 ?? '';
-    observation12 = widget.product.observations12 ?? '';
-    feature1 = widget.product.feature1 ?? '';
-    observationsFeature1 = widget.product.observationsFeature1 ?? '';
-    feature2 = widget.product.feature2 ?? '';
-    observationsFeature1 = widget.product.observationsFeature2 ?? '';
-    feature3 = widget.product.feature3 ?? '';
-    observationsFeature1 = widget.product.observationsFeature3 ?? '';
-    feature4 = widget.product.feature4 ?? '';
-    observationsFeature1 = widget.product.observationsFeature4 ?? '';
-    feature5 = widget.product.feature5 ?? '';
-    observationsFeature1 = widget.product.observationsFeature5 ?? '';
-    urlVideo = widget.product.urlVideo ?? '';
-    adventage1 = widget.product.adventage1 ?? '';
-    observationsAdventage1 = widget.product.observationsAdventage1 ?? '';
-    adventage2 = widget.product.adventage2 ?? '';
-    observationsAdventage1 = widget.product.observationsAdventage2 ?? '';
-    adventage3 = widget.product.adventage3 ?? '';
-    observationsAdventage1 = widget.product.observationsAdventage3 ?? '';
-    adventage4 = widget.product.adventage4 ?? '';
-    observationsAdventage1 = widget.product.observationsAdventage4 ?? '';
-    adventage5 = widget.product.adventage5 ?? '';
-    observationsAdventage1 = widget.product.observationsAdventage5 ?? '';
-    userId = widget.product.userId;
+    id = widget.product!.id;
+    name = widget.product?.name ?? '';
+    reference = widget.product?.reference ?? '';
+    state = widget.product!.state;
+    market1 = widget.product?.market1 ?? '';
+    descriptionMarket1 = widget.product?.descriptionMarket1 ?? '';
+    observation1 = widget.product?.observations1 ?? '';
+    market2 = widget.product?.market2 ?? '';
+    descriptionMarket2 = widget.product?.descriptionMarket2 ?? '';
+    observation2 = widget.product?.observations2 ?? '';
+    market3 = widget.product?.market3 ?? '';
+    descriptionMarket3 = widget.product?.descriptionMarket3 ?? '';
+    observation3 = widget.product?.observations3 ?? '';
+    market4 = widget.product?.market4 ?? '';
+    descriptionMarket4 = widget.product?.descriptionMarket4 ?? '';
+    observation4 = widget.product?.observations4 ?? '';
+    market5 = widget.product?.market5 ?? '';
+    descriptionMarket5 = widget.product?.descriptionMarket5 ?? '';
+    observation5 = widget.product?.observations5 ?? '';
+    market6 = widget.product?.market6 ?? '';
+    descriptionMarket6 = widget.product?.descriptionMarket6 ?? '';
+    observation6 = widget.product?.observations6 ?? '';
+    market7 = widget.product?.market7 ?? '';
+    descriptionMarket7 = widget.product?.descriptionMarket7 ?? '';
+    observation7 = widget.product?.observations7 ?? '';
+    market8 = widget.product?.market8 ?? '';
+    descriptionMarket8 = widget.product?.descriptionMarket8 ?? '';
+    observation8 = widget.product?.observations8 ?? '';
+    marcket9 = widget.product?.market9 ?? '';
+    descriptionMarket9 = widget.product?.descriptionMarket9 ?? '';
+    observation9 = widget.product?.observations9 ?? '';
+    market10 = widget.product?.market10 ?? '';
+    descriptionMarket10 = widget.product?.descriptionMarket10 ?? '';
+    observation10 = widget.product?.observations10 ?? '';
+    market11 = widget.product?.market11 ?? '';
+    descriptionMarket11 = widget.product?.observations11 ?? '';
+    market12 = widget.product?.market12 ?? '';
+    descriptionMarket12 = widget.product?.descriptionMarket12 ?? '';
+    observation12 = widget.product?.observations12 ?? '';
+    feature1 = widget.product?.feature1 ?? '';
+    observationsFeature1 = widget.product?.observationsFeature1 ?? '';
+    feature2 = widget.product?.feature2 ?? '';
+    observationsFeature1 = widget.product?.observationsFeature2 ?? '';
+    feature3 = widget.product?.feature3 ?? '';
+    observationsFeature1 = widget.product?.observationsFeature3 ?? '';
+    feature4 = widget.product?.feature4 ?? '';
+    observationsFeature1 = widget.product?.observationsFeature4 ?? '';
+    feature5 = widget.product?.feature5 ?? '';
+    observationsFeature1 = widget.product?.observationsFeature5 ?? '';
+    urlVideo = widget.product?.urlVideo ?? '';
+    adventage1 = widget.product?.adventage1 ?? '';
+    observationsAdventage1 = widget.product?.observationsAdventage1 ?? '';
+    adventage2 = widget.product?.adventage2 ?? '';
+    observationsAdventage1 = widget.product?.observationsAdventage2 ?? '';
+    adventage3 = widget.product?.adventage3 ?? '';
+    observationsAdventage1 = widget.product?.observationsAdventage3 ?? '';
+    adventage4 = widget.product?.adventage4 ?? '';
+    observationsAdventage1 = widget.product?.observationsAdventage4 ?? '';
+    adventage5 = widget.product?.adventage5 ?? '';
+    observationsAdventage1 = widget.product?.observationsAdventage5 ?? '';
+    userId = widget.product!.userId;
   }
 
   @override
   Widget build(BuildContext context) {
-    final prod = Provider.of<ProductProvider>(context, listen: false);
+    final prod = Provider.of<ProductProvider>(context);
 
     return Container(
       decoration: BoxDecoration(
@@ -241,7 +240,7 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
                       child: Column(
                         children: [
                           TextFormField(
-                              initialValue: widget.product.name,
+                              initialValue: widget.product?.name ?? '',
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'El nombre del producto debe ser obligatorio';
@@ -258,7 +257,7 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
                             height: 10,
                           ),
                           TextFormField(
-                              initialValue: widget.product.reference,
+                              initialValue: widget.product?.reference ?? '',
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'El nombre del producto debe ser obligatorio';
@@ -448,7 +447,7 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
                   height: 20,
                 ),
                 TextFormField(
-                    initialValue: widget.product.urlVideo,
+                    initialValue: widget.product?.urlVideo ?? '',
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'El nombre del producto debe ser obligatorio';
@@ -541,19 +540,19 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
                         prod.load("id", id);
                         prod.load("state", false);
                         prod.load("userId", userId);
-                        prod.updateProduct(id);
+                        await prod.updateProduct(id);
 
                         NotificationsService.showSnackbarSuccess(
                             "Producto actualizado con exito");
-                      }
 
-                      Navigator.of(context).pop();
+                        if (!mounted) return;
+                        Navigator.of(context).pop();
+                      }
                     } catch (e) {
                       NotificationsService.showSnackbarError(
                           'No se pudo crear la clasificación');
                       Navigator.of(context).pop();
                     }
-                    
                   },
                   text: "Actualizar",
                   isFilled: true,

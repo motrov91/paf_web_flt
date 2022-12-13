@@ -37,7 +37,7 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
     }).catchError((e) {
       NotificationsService.showSnackbarError(
-          'Email / Contraseña no válido, error: $e');
+          'Email / Contraseña no válido');
     });
   }
 

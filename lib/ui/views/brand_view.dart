@@ -73,7 +73,8 @@ class _BrandViewState extends State<BrandView> {
                     ? TextButton(
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Color(0xff3069af))),
+                                MaterialStateProperty.all(
+                                const Color(0xff3069af))),
                         onPressed: () {
                           showModalBottomSheet(
                             backgroundColor: Colors.transparent,
