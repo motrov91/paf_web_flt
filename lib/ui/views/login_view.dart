@@ -13,7 +13,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return ChangeNotifierProvider(
         create: (_) => LoginFormProvider(),
@@ -42,7 +42,8 @@ class LoginView extends StatelessWidget {
                             height: 20,
                           ),
                           TextFormField(
-                            onFieldSubmitted: (value) => onFormSubmit(providerLogin, authProvider),
+                            onFieldSubmitted: (value) =>
+                                onFormSubmit(providerLogin, authProvider),
                             validator: (value) {
                               if (!EmailValidator.validate(value ?? '')) {
                                 return 'Email no valido';
@@ -67,15 +68,22 @@ class LoginView extends StatelessWidget {
 
                               return null;
                             },
-                            obscureText: true,
-                            onFieldSubmitted: (value) => onFormSubmit(providerLogin, authProvider),
+                            obscureText: authProvider.visibilityPassword,
+                            onFieldSubmitted: (value) =>
+                                onFormSubmit(providerLogin, authProvider),
                             onChanged: (value) =>
                                 providerLogin.password = value,
                             style: const TextStyle(color: Colors.black54),
-                            decoration: CustomsInputs.inputDecorationLogin(
+                            decoration: CustomsInputs.inputDecorationPassword(
                                 hint: '*********',
                                 label: 'Contraseña',
-                                icon: Icons.lock_outline),
+                                icon: Icons.lock_outline,
+                                state: (authProvider.visibilityPassword)
+                                    ? true
+                                    : false,
+                                onPressed: () {
+                                  authProvider.setVisibilityPassword();
+                                }),
                           ),
                           const SizedBox(
                             height: 20,

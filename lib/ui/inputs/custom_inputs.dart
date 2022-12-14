@@ -17,6 +17,33 @@ class CustomsInputs {
     );
   }
 
+  static InputDecoration inputDecorationPassword(
+      {required String hint,
+      required String label,
+      required IconData icon,
+      required bool state,
+      required Function onPressed}) {
+    return InputDecoration(
+      suffixIcon: IconButton(
+        onPressed: () => onPressed(),
+        icon: Icon(
+          state ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+          size: 20,
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey.withOpacity(0.7)),
+      ),
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey.withOpacity(0.7))),
+      hintText: hint,
+      labelText: label,
+      prefixIcon: Icon(icon, color: Colors.grey.withOpacity(0.7)),
+      labelStyle: TextStyle(color: Colors.grey.withOpacity(0.7)),
+      hintStyle: TextStyle(color: Colors.grey.withOpacity(0.3)),
+    );
+  }
+
   static InputDecoration inputDecorationRegister(
       {required String hint, required String label, required IconData icon}) {
     return InputDecoration(

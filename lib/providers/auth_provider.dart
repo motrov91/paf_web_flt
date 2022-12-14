@@ -13,6 +13,7 @@ class AuthProvider with ChangeNotifier {
   String? _token;
   AuthStatus authStatus = AuthStatus.checking;
   User? user;
+  bool _obscurePassword = true;
 
   AuthProvider() {
     isAuthenticated();
@@ -36,8 +37,7 @@ class AuthProvider with ChangeNotifier {
 
       notifyListeners();
     }).catchError((e) {
-      NotificationsService.showSnackbarError(
-          'Email / Contraseña no válido');
+      NotificationsService.showSnackbarError('Email / Contraseña no válido');
     });
   }
 
@@ -67,6 +67,13 @@ class AuthProvider with ChangeNotifier {
 
       return false;
     }
+  }
+
+  get visibilityPassword => _obscurePassword;
+
+  void setVisibilityPassword() {
+    _obscurePassword = !_obscurePassword;
+    notifyListeners();
   }
 
   //Cerrar sesión
