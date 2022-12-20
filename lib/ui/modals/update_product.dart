@@ -157,7 +157,7 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
 
     final image = (img == '')
         ? const Image(image: AssetImage('no-image.jpg'))
-        : Container(
+        : SizedBox(
             width: 130,
             height: 130,
             child: FadeInImage.assetNetwork(
