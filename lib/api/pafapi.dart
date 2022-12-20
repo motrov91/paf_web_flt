@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:paf_web/services/local_storage.dart';
 
 class PafApi {
@@ -37,7 +38,7 @@ class PafApi {
   }
 
   //Peticion put
-  static Future httpPut( String path, Map<String, dynamic> data ) async {
+  static Future httpPut(String path, Map<String, dynamic> data) async {
     try {
       final response = await _dio.put(path, data: data);
       return response.data;
@@ -47,12 +48,24 @@ class PafApi {
   }
 
   //Peticion put
-  static Future httpDelete( String path, Map<String, dynamic> data ) async {
+  static Future httpDelete(String path, Map<String, dynamic> data) async {
     try {
       final response = await _dio.delete(path, data: data);
       return response.data;
     } catch (e) {
       throw ('Error en el DELETE $e');
+    }
+  }
+
+  static Future uploadFile(String path, Uint8List bytes) async {
+    final formData =
+        FormData.fromMap({'archivo': MultipartFile.fromBytes(bytes)});
+
+    try {
+      final response = await _dio.put(path, data: formData);
+      return response.data;
+    } catch (e) {
+      throw ('Error en el PUT');
     }
   }
 }
