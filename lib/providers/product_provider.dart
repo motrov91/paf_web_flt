@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:paf_web/api/pafapi.dart';
 import 'package:paf_web/models/http/productResponse.dart';
@@ -5,6 +6,8 @@ import 'package:paf_web/models/product.dart';
 
 class ProductProvider with ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  Product? product;
 
   String name = '';
   String reference = '';
@@ -178,5 +181,27 @@ class ProductProvider with ChangeNotifier {
     ascending = !ascending;
 
     notifyListeners();
+  }
+
+  Future<Product> uploadImage(int id, String path, Uint8List bytes) async {
+    try {
+      final resp = await PafApi.uploadFile(path, bytes);
+      product = Product.fromMap(resp);
+
+      productList = productList.map((e) {
+        if (e.id != id) return e;
+
+        e.img = product!.img;
+
+        return e;
+      }).toList();
+
+      notifyListeners();
+
+      return product!;
+    } catch (e) {
+      print(e);
+      throw "Error en provider uploadImage";
+    }
   }
 }

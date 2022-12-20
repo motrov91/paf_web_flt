@@ -8,6 +8,7 @@ class Product {
       required this.name,
       required this.reference,
       required this.state,
+    this.img,
       this.market1,
       this.descriptionMarket1,
       this.observations1,
@@ -75,6 +76,7 @@ class Product {
     String name;
     String reference;
     bool state;
+  String? img;
     String? market1;
     String? descriptionMarket1;
     String? observations1;
@@ -143,6 +145,7 @@ class Product {
 
     factory Product.fromMap(Map<String, dynamic> json) => Product(
         id: json["id"],
+        img: json["img"],
         name: json["name"],
         reference: json["reference"],
         state: json["state"],
@@ -211,6 +214,7 @@ class Product {
 
     Map<String, dynamic> toMap() => {
         "id": id,
+        "img": img,
         "name": name,
         "reference": reference,
         "state": state,

@@ -24,6 +24,7 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
   String name = "";
   String reference = "";
   bool state = false;
+  String? img = '';
   String? market1 = '';
   String? descriptionMarket1 = "";
   String? observation1 = "";
@@ -90,6 +91,7 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
     name = widget.product?.name ?? '';
     reference = widget.product?.reference ?? '';
     state = widget.product!.state;
+    img = widget.product!.img ?? '';
     market1 = widget.product?.market1 ?? '';
     descriptionMarket1 = widget.product?.descriptionMarket1 ?? '';
     observation1 = widget.product?.observations1 ?? '';
@@ -153,6 +155,14 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
   Widget build(BuildContext context) {
     final prod = Provider.of<ProductProvider>(context);
 
+    final image = (img == '')
+        ? const Image(image: AssetImage('no-image.jpg'))
+        : Container(
+            width: 130,
+            height: 130,
+            child: FadeInImage.assetNetwork(
+                placeholder: 'loader.gif', image: img!));
+
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
@@ -197,11 +207,7 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
                       height: 130,
                       child: Stack(
                         children: [
-                          const ClipOval(
-                            child: Image(
-                              image: AssetImage('no-image.jpg'),
-                            ),
-                          ),
+                          ClipOval(child: image),
                           Positioned(
                             right: 20,
                             bottom: 5,
@@ -222,9 +228,16 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
                                   if (result != null) {
                                     PlatformFile file = result.files.first;
 
-                                    print(file.name);
-                                    print(file.bytes);
+                                    NotificationsService.showBussyIndicator(
+                                        context);
+
+                                    final resp = await prod.uploadImage(id,
+                                        '/uploads/product/$id', file.bytes!);
+
+                                    Navigator.of(context).pop();
                                   } else {}
+
+                                  Navigator.of(context).pop();
                                 },
                                 child: const Icon(
                                   Icons.camera_alt_outlined,
