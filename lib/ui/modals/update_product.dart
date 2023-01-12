@@ -563,7 +563,7 @@ class _UpdateProductModalState extends State<UpdateProductModal> {
                       }
                     } catch (e) {
                       NotificationsService.showSnackbarError(
-                          'No se pudo crear la clasificación');
+                          'No se pudo Actualizar el producto');
                       Navigator.of(context).pop();
                     }
                   },

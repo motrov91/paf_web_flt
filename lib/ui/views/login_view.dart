@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:paf_web/router/router.dart';
+import 'package:paf_web/services/navigation_service.dart';
 import 'package:provider/provider.dart';
 
 import 'package:paf_web/ui/buttons/custom_outlined_button.dart';
@@ -100,7 +102,10 @@ class LoginView extends StatelessWidget {
                             height: 30,
                           ),
                           LinkText(
-                              text: 'Olvide mi contraseña', onPressed: () {})
+                            text: 'Olvidé mi contraseña',
+                            onPressed: () => NavigationService.navigateTo(
+                                Flurorouter.recoveryRouter),
+                          )
                         ]),
                   ),
                 ),

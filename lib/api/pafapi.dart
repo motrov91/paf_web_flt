@@ -8,8 +8,8 @@ class PafApi {
 
   static void configureDio() {
     //Url api
-    _dio.options.baseUrl = "http://localhost:3000";
-    //_dio.options.baseUrl = "https://apipafnjs-production.up.railway.app";
+    // _dio.options.baseUrl = "http://localhost:3000";
+    _dio.options.baseUrl = "https://apipafnjs-production.up.railway.app";
 
     //Configuración headers
     _dio.options.headers = {
@@ -65,7 +65,7 @@ class PafApi {
       final response = await _dio.put(path, data: formData);
       return response.data;
     } catch (e) {
-      throw ('Error en el PUT');
+      throw ('Error en el PUT $e');
     }
   }
 }

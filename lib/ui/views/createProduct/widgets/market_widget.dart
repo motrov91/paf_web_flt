@@ -44,6 +44,13 @@ class _DropMarketState extends State<_DropMarket> {
     return Column(
       children: [
         DropdownButtonFormField(
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Este campo es obligatorio';
+            }
+            product.marketDescriptions.add(value);
+            return null;
+          },
           hint: const Text('Seleccione un mercado'),
           items: const [
             DropdownMenuItem(

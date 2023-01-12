@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paf_web/api/pafapi.dart';
 import 'package:paf_web/models/http/authResponse.dart';
+import 'package:paf_web/models/http/recoveryResponse.dart';
 import 'package:paf_web/models/user.dart';
 import 'package:paf_web/router/router.dart';
 import 'package:paf_web/services/local_storage.dart';
@@ -10,10 +11,17 @@ import 'package:paf_web/services/notifications_service.dart';
 enum AuthStatus { checking, authenticated, notAuthenticated }
 
 class AuthProvider with ChangeNotifier {
+  GlobalKey<FormState> formKeyRecovery = GlobalKey<FormState>();
+  GlobalKey<FormState> formKeyChangePassword = GlobalKey<FormState>();
+
   String? _token;
   AuthStatus authStatus = AuthStatus.checking;
   User? user;
   bool _obscurePassword = true;
+  String emailRecovery = '';
+
+  String newPassword = '';
+  String repeatPassword = '';
 
   AuthProvider() {
     isAuthenticated();
@@ -82,5 +90,51 @@ class AuthProvider with ChangeNotifier {
     authStatus = AuthStatus.notAuthenticated;
     NavigationService.replaceTo(Flurorouter.loginRouter);
     notifyListeners();
+  }
+
+  bool validFormRecovery() {
+    if (formKeyRecovery.currentState!.validate()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool validateFormChangePassword() {
+    if (newPassword == repeatPassword) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //Recovery password
+  recoveryPassword(String emailRecovery) {
+    final data = {"emailToVerificate": emailRecovery};
+    PafApi.httpPost('/auth/valitadeEmail', data).then((json) {
+      final statusEmail = RecoveryResponse.fromMap(json);
+
+      final status = statusEmail.usuarioStatus;
+
+      NavigationService.replaceTo(Flurorouter.loginRouter);
+
+      NotificationsService.showSnackbarSuccess(
+          "Solicitud exitosa, verifica tu correo electrónico.");
+    }).catchError((e) {
+      print('error recovery - $e');
+      NotificationsService.showSnackbarError(
+          'El correo no existe en nuestra base de datos, verificalo.');
+    });
+  }
+
+  changePassword(String token) {
+    final data = {"newPass": newPassword, "repeat": repeatPassword};
+    PafApi.httpPost('/auth/changePassword/$token', data).then((value) {
+      NavigationService.replaceTo(Flurorouter.loginRouter);
+      NotificationsService.showSnackbarSuccess("Cambio de contraseña exitoso");
+    }).catchError((e) {
+      print(('error change password $e'));
+      NavigationService.replaceTo(Flurorouter.loginRouter);
+    });
   }
 }

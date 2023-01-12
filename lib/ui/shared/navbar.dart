@@ -32,11 +32,11 @@ class Navbar extends StatelessWidget {
             ),
 
           //Search input
-          if( size.width > 670 )
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 400),
-              child: const SearchText(),
-            ),
+          // if( size.width > 670 )
+          //   ConstrainedBox(
+          //     constraints: const BoxConstraints(maxWidth: 400),
+          //     child: const SearchText(),
+          //   ),
 
           const Spacer(),
 

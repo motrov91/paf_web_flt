@@ -1,37 +1,40 @@
 import 'dart:convert';
 
 class User {
-    User({
-        required this.id,
-        required this.name,
-        required this.email,
-        required this.cargo,
-        required this.rolId,
-    });
+  User(
+      {required this.id,
+      required this.name,
+      required this.email,
+      required this.cargo,
+      required this.rolId,
+      this.token});
 
-    int id;
-    String name;
-    String email;
-    String cargo;
-    int rolId;
+  int id;
+  String name;
+  String email;
+  String cargo;
+  int rolId;
+  String? token;
 
-    factory User.fromJson(String str) => User.fromMap(json.decode(str));
+  factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
-    String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());
 
-    factory User.fromMap(Map<String, dynamic> json) => User(
+  factory User.fromMap(Map<String, dynamic> json) => User(
         id: json["id"],
         name: json["name"],
         email: json["email"],
         cargo: json["cargo"],
         rolId: json["rolId"],
-    );
+        token: json["token"],
+      );
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "id": id,
         "name": name,
         "email": email,
         "cargo": cargo,
         "rolId": rolId,
-    };
+        "token": token,
+      };
 }

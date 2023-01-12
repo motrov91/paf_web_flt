@@ -73,6 +73,7 @@ class ProductProvider with ChangeNotifier {
 
       return;
     } catch (e) {
+      print(e);
       throw "Error al crear el producto";
     }
   }
@@ -201,7 +202,13 @@ class ProductProvider with ChangeNotifier {
       return product!;
     } catch (e) {
       print(e);
-      throw "Error en provider uploadImage";
+      throw "Error en provider uploadImage $e";
     }
+  }
+
+  void searchProduct(String text) {
+    productList.removeWhere((e) => e.name == text);
+    print(productList);
+    notifyListeners();
   }
 }

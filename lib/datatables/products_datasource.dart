@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:paf_web/models/product.dart';
 import 'package:paf_web/providers/auth_provider.dart';
-import 'package:paf_web/ui/buttons/custom_outlined_button.dart';
 import 'package:paf_web/ui/buttons/custom_outlined_button_stateProduct.dart';
 import 'package:paf_web/ui/dialogs/delete_dialog.dart';
 import 'package:paf_web/ui/modals/update_product.dart';
 import 'package:paf_web/ui/modals/update_status.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductsDTS extends DataTableSource {
   final List<Product> products;
@@ -26,17 +26,23 @@ class ProductsDTS extends DataTableSource {
       cells: [
         DataCell(Center(child: Text(product.name))),
         DataCell(Center(
-          child: CustomOutlinedButton(
-            fontText: 12,
-            horizontalValue: 6,
-            verticalValue: 4,
-            text: 'Infografía',
-            isFilled: true,
-            color: const Color(0xffe1f5fe),
-            textColor: Colors.blue,
-            onPressed: () {},
+            child: InkWell(
+          onTap: () => launchUrl(Uri.parse(
+              'https://apipafnjs-production.up.railway.app/product/product-pdf/${product.id}')),
+          child: Container(
+            width: 100,
+            height: 25,
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.blue),
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.blue.withOpacity(0.5)),
+            child: const Center(
+                child: Text(
+              'Infografía',
+              style: TextStyle(color: Colors.white),
+            )),
           ),
-        )),
+        ))),
         DataCell((user!.rolId != 1)
             ? (product.state == false)
                 ? const Center(
@@ -63,7 +69,10 @@ class ProductsDTS extends DataTableSource {
         DataCell(Center(
           child: Text(product.user.name),
         )),
-        DataCell(Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        (user.rolId == 3)
+            ? DataCell(Container())
+            : DataCell(
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           IconButton(
             splashRadius: 13,
             onPressed: () {
@@ -113,6 +122,8 @@ class ProductsDTS extends DataTableSource {
             ),
           ),
         ])),
+
+        
       ],
     );
   }

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:paf_web/datatables/asesor_datasourse.dart';
 import 'package:paf_web/datatables/products_datasource.dart';
 import 'package:paf_web/providers/product_provider.dart';
 import 'package:paf_web/router/router.dart';
 import 'package:paf_web/services/navigation_service.dart';
 import 'package:paf_web/ui/labels/custom_labels.dart';
 import 'package:provider/provider.dart';
+
+import '../../providers/auth_provider.dart';
 
 class ProductView extends StatefulWidget {
   const ProductView({super.key});
@@ -26,6 +29,7 @@ class _ProductViewState extends State<ProductView> {
   @override
   Widget build(BuildContext context) {
     final products = Provider.of<ProductProvider>(context);
+    final user = Provider.of<AuthProvider>(context).user;
 
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -88,11 +92,14 @@ class _ProductViewState extends State<ProductView> {
                       products.sort((product) => product.user.name);
                     },
                   ),
-                  const DataColumn(
+                (user!.rolId == 1 || user.rolId == 2)
+                    ? const DataColumn(
                       label: Expanded(
-                          child: Center(child: Text('Info Producto')))),
+                            child: Center(child: Text('Info Producto'))))
+                    : const DataColumn(label: Text(''))
                 ],
-                source: ProductsDTS(products.productList, context))
+              source: ProductsDTS(products.productList, context),
+            ),
           ],
         ));
   }

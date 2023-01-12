@@ -9,6 +9,8 @@ class Flurorouter {
 
   //Auth router
   static String loginRouter = '/auth/login';
+  static String recoveryRouter = '/auth/recovery';
+  static String changePassword = '/auth/changePassword/:token';
 
   //Dashboard
   static String dashboardRoute = '/dashboard';
@@ -22,6 +24,11 @@ class Flurorouter {
   static void configureRoutes() {
     //Auth routes
     router.define(loginRouter, handler: AuthHandlers.login);
+    router.define(
+      recoveryRouter,
+      handler: AuthHandlers.recovery,
+      transitionType: TransitionType.fadeIn,
+    );
 
     //Dashboard
     router.define(dashboardRoute,
@@ -45,6 +52,7 @@ class Flurorouter {
     router.define(editProduct,
         handler: DashboardHandlers.updateProduct,
         transitionType: TransitionType.fadeIn);
+    router.define(changePassword, handler: AuthHandlers.changePassword);
 
     // 404
     router.notFoundHandler = NoPageFoundHandlers.noPageFound;

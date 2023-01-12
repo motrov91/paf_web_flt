@@ -177,18 +177,20 @@ class CreateProduct extends StatelessWidget {
                                   text: 'Guardar',
                                   onPressed: () async {
                                     final isValid = product.validateForm();
-                                    try {
-                                      if (isValid) {
+
+                                    if (isValid) {
                                         await product.addProduct();
+                                      try {
+                                        counter.restartQuantity();
+                                        NotificationsService
+                                            .showSnackbarSuccess(
+                                                'Producto creado con exito');
+                                        Navigator.of(context).pop();
+                                      } catch (e) {
+                                        Navigator.of(context).pop();
+                                        NotificationsService.showSnackbarError(
+                                            'No se pudo crear el producto');
                                       }
-                                      counter.restartQuantity();
-                                      NotificationsService.showSnackbarSuccess(
-                                          'Producto creado con exito');
-                                      Navigator.of(context).pop();
-                                    } catch (e) {
-                                      Navigator.of(context).pop();
-                                      NotificationsService.showSnackbarError(
-                                          'No se pudo crear el producto');
                                     }
                                   },
                                   color: Colors.green),
