@@ -30,13 +30,14 @@ class Sidebar extends StatelessWidget {
         physics: const ClampingScrollPhysics(),
         children: [
           const Logo(),
-          const Center(
-            child: Text('Ambiente de pruebas', style: TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.bold,
-              fontSize: 20
-            ),)
-          ),
+          //* TEXTO AMBIENTE DE PRUEBAS
+          // const Center(
+          //   child: Text('Ambiente de pruebas', style: TextStyle(
+          //     color: Colors.red,
+          //     fontWeight: FontWeight.bold,
+          //     fontSize: 20
+          //   ),)
+          // ),
           const SizedBox(
             height: 50,
           ),

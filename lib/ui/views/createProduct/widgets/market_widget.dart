@@ -15,6 +15,9 @@ class _MarketWidgetState extends State<MarketWidget> {
   String market = '';
   String description = '';
 
+  final TextEditingController _textController = TextEditingController();
+  final Set<String> dictionary = {'hello', 'world', 'flutter', 'example'};
+
   final fieldText = TextEditingController();
 
   void clearText() {
@@ -86,7 +89,8 @@ class _MarketWidgetState extends State<MarketWidget> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
-                      controller: fieldText,
+                      //controller: fieldText,
+                      controller: _textController,
                       keyboardType: TextInputType.multiline,
                       maxLines: 2,
                       maxLength: 254,
@@ -109,21 +113,30 @@ class _MarketWidgetState extends State<MarketWidget> {
                                   color: Colors.grey.withOpacity(0.5))),
                           focusColor: Colors.white)),
                   Center(
-                    child: CustomOutlinedButton(
-                        isFilled: true,
-                        color: Colors.blue,
-                        text: 'Agregar Mercado',
-                        onPressed: () => market.isEmpty || description.isEmpty
-                            ? false
-                            : {
-                                product.addMarket(market),
-                                product.addDescriptionMarket(description),
-                                clearText(),
-                                setState(() {
-                                  market = "";
-                                  description = "";
-                                })
-                              }),
+                    child: Row(
+                      children: [
+                        MaterialButton(onPressed: (){
+                          _validateText();
+                        },
+                        child: Text('prueba'),
+                        ),
+                        CustomOutlinedButton(
+                            isFilled: true,
+                            color: Colors.blue,
+                            text: 'Agregar Mercado',
+                            onPressed: () => market.isEmpty || description.isEmpty
+                                ? false
+                                : {
+                                    product.addMarket(market),
+                                    product.addDescriptionMarket(description),
+                                    clearText(),
+                                    setState(() {
+                                      market = "";
+                                      description = "";
+                                    })
+                                  }),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 10)
                 ],
@@ -209,4 +222,47 @@ class _MarketWidgetState extends State<MarketWidget> {
       ],
     );
   }
+
+  void _validateText() {
+    final text = _textController.text;
+    print('TEXT $text');
+    final words = text.split(' ');
+
+    for (final word in words) {
+      if (!dictionary.contains(word.toLowerCase())) {
+        _suggestCorrection(word);
+      }
+    }
+  }
+
+  void _suggestCorrection(String misspelledWord) {
+    // Aquí puedes implementar lógica para sugerir una corrección para la palabra mal escrita
+    // Por simplicidad, esta implementación sugiere una palabra aleatoria del diccionario
+    final List<String> suggestions = dictionary.toList();
+    suggestions.shuffle(); // Mezclar las palabras del diccionario
+    final suggestedWord = suggestions.first;
+
+    _showCorrectionDialog(misspelledWord, suggestedWord);
+  }
+
+  void _showCorrectionDialog(String misspelledWord, String suggestedWord) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Palabra mal escrita'),
+          content: Text('Quisiste decir: $suggestedWord en lugar de ${misspelledWord}?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
+

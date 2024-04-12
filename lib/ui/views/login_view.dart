@@ -57,13 +57,14 @@ class LoginView extends StatelessWidget {
                                   ),
                                 ),
 
-                                const Center(
-                                  child: Text('Ambiente de pruebas', style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20
-                                  ),)
-                                ),
+                                //* AMBIENTE DE PRUEBAS TEXTO
+                                // const Center(
+                                //   child: Text('Ambiente de pruebas', style: TextStyle(
+                                //     color: Colors.red,
+                                //     fontWeight: FontWeight.bold,
+                                //     fontSize: 20
+                                //   ),)
+                                // ),
 
                                 const SizedBox(
                                   height: 20,

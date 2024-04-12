@@ -19,6 +19,39 @@ class CategoriesDTS extends DataTableSource {
     final user = Provider.of<AuthProvider>(context).user;
 
     return DataRow.byIndex(index: index, cells: [
+      DataCell(Center(
+        child: category.publishCategory
+          ? IconButton(
+              onPressed: (){
+                final dialog = DeleteDialog(
+                    id: category.id,
+                    name: category.name,
+                    statusShow: category.publishCategory,
+                    textHeader: "Desea modificar el estado de publicación de la categoria",
+                    selectedDelete: "SHOWCATEGORY");
+
+                showDialog(
+                  barrierColor: Colors.black26,
+                  context: context,
+                  builder: (_) => dialog);
+              },
+              icon: const Icon(Icons.check_box_rounded), color: Colors.blue,)
+          : IconButton(
+              onPressed: (){
+                final dialog = DeleteDialog(
+                    id: category.id,
+                    name: category.name,
+                    statusShow: category.publishCategory,
+                    textHeader: "Desea modificar el estado de publicación de la categoria",
+                    selectedDelete: "SHOWCATEGORY");
+
+                showDialog(
+                  barrierColor: Colors.black26,
+                  context: context,
+                  builder: (_) => dialog);
+              },
+              icon: const Icon(Icons.check_box_outline_blank), color: Colors.grey,)
+      )),
       DataCell(Center(child: Text(category.name))),
       DataCell(Center(child: Text(category.brand.brand))),
       DataCell((user!.rolId == 3)

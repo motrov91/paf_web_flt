@@ -24,7 +24,7 @@ class UsersProvider with ChangeNotifier {
   }
 
   Future register(String name, String email, String password,
-      String repeatPassword, String cargo) async {
+      String repeatPassword, String cargo, String telefono, String ciudad) async {
     var rolInt = int.parse(rolId);
 
     final data = {
@@ -33,7 +33,9 @@ class UsersProvider with ChangeNotifier {
       "password": password,
       "repeat_password": repeatPassword,
       "cargo": cargo,
-      "rolId": rolInt
+      "rolId": rolInt,
+      "telefono" : telefono,
+      "ciudad" : ciudad
     };
 
     //Peticion http

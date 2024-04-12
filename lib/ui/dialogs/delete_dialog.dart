@@ -43,7 +43,7 @@ class DeleteDialog extends StatelessWidget {
       content: Text(
         selectedDelete != 'SHOWBRAND'
           ? 'Una vez aceptes cambiarás el estado de $name'
-          : 'Desea cambiar el estado de la marca $name',
+          : 'Desea cambiar el estado de $name',
         style: GoogleFonts.roboto(fontSize: 13),
       ),
       actions: [
@@ -128,9 +128,17 @@ class DeleteDialog extends StatelessWidget {
                   print(e);
                 }
                 break;
+              case 'SHOWCATEGORY':
+                try{
+                  Provider.of<CategoryProvider>(context, listen: false).updateShowStatus(id, statusShow!);
+                }catch(e){
+                  print(e);
+                }
+                break;
               default:
                 NotificationsService.showSnackbarError(
                     "No se pudo eliminar el producto");
+
             }
 
             //Cierra el modal

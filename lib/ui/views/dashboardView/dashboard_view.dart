@@ -36,7 +36,7 @@ class DashboardView extends StatelessWidget {
                       width: 150,
                       height: 150,
                       child: const Image(image: AssetImage('./logo.png'))),
-                )
+                ),
               ],
             )
           ],

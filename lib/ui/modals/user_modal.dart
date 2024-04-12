@@ -30,6 +30,8 @@ class _UserModalState extends State<UserModal> {
   String rolId = '';
   String password = "";
   String repeat_password = "";
+  String ciudad = '';
+  String telefono = '';
 
   @override
   void initState() {
@@ -42,10 +44,17 @@ class _UserModalState extends State<UserModal> {
     rolId = widget.user?.rolId.toString() ?? '';
     password = "";
     repeat_password = "";
+    ciudad = widget.user?.ciudad ?? '';
+    telefono = widget.user?.telefono ?? '';
   }
 
   @override
   Widget build(BuildContext context) {
+
+    print(telefono);
+    print(ciudad);
+    print(cargo);
+
     return ChangeNotifierProvider(
       create: (_) => RegisterFormProvider(),
       child: Builder(builder: (context) {
@@ -137,7 +146,7 @@ class _UserModalState extends State<UserModal> {
                                       if (value == null || value.isEmpty) {
                                         return 'Ingrese un password';
                                       }
-                                      if( value.length <= 6 ){
+                                      if (value.length <= 6) {
                                         return 'La contraseña debe tener al menos 7 caracteres';
                                       }
                                       return null;
@@ -169,6 +178,7 @@ class _UserModalState extends State<UserModal> {
                                 ],
                               ),
                         TextFormField(
+                          
                           style: const TextStyle(color: Colors.white),
                           initialValue: widget.user?.cargo ?? '',
                           decoration: CustomsInputs.inputDecorationRegister(
@@ -182,6 +192,42 @@ class _UserModalState extends State<UserModal> {
                             return null;
                           },
                           onChanged: (value) => cargo = value,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          initialValue: ciudad,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: CustomsInputs.inputDecorationRegister(
+                              hint: 'Ciudad',
+                              label: 'Ciudad',
+                              icon: Icons.account_balance_outlined),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Ingrese la ciudad donde se encuentra';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) => ciudad = value,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          initialValue: telefono,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: CustomsInputs.inputDecorationRegister(
+                              hint: 'Teléfono',
+                              label: 'Teléfono',
+                              icon: Icons.account_balance_outlined),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Ingrese un numero de teléfono';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) => telefono = value,
                         ),
                         const SizedBox(
                           height: 10,
@@ -208,7 +254,7 @@ class _UserModalState extends State<UserModal> {
                               //Create user
                               try {
                                 await userProvider.register(name, email,
-                                    password, repeat_password, cargo);
+                                    password, repeat_password, cargo, telefono, ciudad);
                                 NotificationsService.showSnackbarSuccess(
                                     "Producto creado con exito");
                                 if (!mounted) return;

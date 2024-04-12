@@ -104,4 +104,24 @@ class CategoryProvider with ChangeNotifier {
 
     return categoryList;
   }
+
+  Future updateShowStatus(int id, bool status) async{
+    final Map<String, dynamic> data = {
+      'id': id,
+      'status' : !status
+    };
+
+    await PafApi.httpPut('/category/updateShowCategory/$id', data);
+
+    categoryList = categoryList.map((e) {
+      if (e.id != id) return e;
+
+      e.publishCategory = !e.publishCategory;
+
+      return e;
+    }).toList();
+
+    notifyListeners();
+
+  }
 }

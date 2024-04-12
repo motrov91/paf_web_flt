@@ -7,9 +7,10 @@ class PafApi {
   static final Dio _dio = Dio();
 
   static void configureDio() {
+
     //Url api
-    /*Local*/ _dio.options.baseUrl = "http://localhost:3000"; 
-    // /*Producción*/ _dio.options.baseUrl = "https://apipafnjs-production.up.railway.app"; 
+    // /*Local*/ _dio.options.baseUrl = "http://localhost:3000"; 
+    /*Producción*/ _dio.options.baseUrl = "https://apipafnjs-production.up.railway.app"; 
     // /*Testing*/ _dio.options.baseUrl = "https://apipafnjs-production-e7a0.up.railway.app/"; 
 
     //Configuración headers

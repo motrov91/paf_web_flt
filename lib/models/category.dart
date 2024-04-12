@@ -6,12 +6,14 @@ class Category {
         required this.name,
         required this.brandId,
         required this.brand,
+        required this.publishCategory
     });
 
     int id;
     String name;
     int brandId;
     _Brand brand;
+    bool publishCategory;
 
     factory Category.fromJson(String str) => Category.fromMap(json.decode(str));
 
@@ -22,6 +24,7 @@ class Category {
         name: json["name"],
         brandId: json["brandId"],
         brand: _Brand.fromMap(json["Brand"]),
+        publishCategory: json['publishCategory']
     );
 
     Map<String, dynamic> toMap() => {
@@ -29,6 +32,7 @@ class Category {
         "name": name,
         "brandId": brandId,
         "Brand": brand.toMap(),
+        "publishCategory" : publishCategory
     };
 }
 

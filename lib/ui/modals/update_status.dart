@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:paf_web/models/product.dart';
 import 'package:paf_web/providers/product_provider.dart';
+import 'package:paf_web/services/notifications_service.dart';
 import 'package:provider/provider.dart';
 
 class UpdateStatus extends StatefulWidget {
@@ -72,6 +73,8 @@ class _UpdateStatusState extends State<UpdateStatus> {
                       children: [
                         Text(
                           'Estado actual del producto: $name',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.w500),
                         ),
@@ -126,9 +129,13 @@ class _UpdateStatusState extends State<UpdateStatus> {
                               // product.load("id", id);
                               // product.load('name', name);
                               // product.load("userId", userId);
-                              product.updateStatus(id, name, userId, _status);
-
-                              Navigator.of(context).pop();
+                              try{
+                                product.updateStatus(id, name, userId, _status);
+                                Navigator.of(context).pop();
+                              }catch(error){
+                                NotificationsService.showSnackbarError('No se pudo completar la accion');
+                              }
+                              
                             },
                             child: const Text(
                               'ACTUALIZAR',

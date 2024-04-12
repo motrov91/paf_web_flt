@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paf_web/providers/status_service-provider.dart';
 import 'dart:ui';
 import 'package:provider/provider.dart';
 
@@ -59,7 +60,8 @@ class AppState extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: ((_) => CountersProvider())),
         ChangeNotifierProvider(create: ((_) => ProductProvider())),
-        ChangeNotifierProvider(create: ((_) => ProductFormProvider()))
+        ChangeNotifierProvider(create: ((_) => ProductFormProvider())),
+        ChangeNotifierProvider(create: ((_) => StatusServiceProvider())),
       ],
       child: const MyApp(),
     );

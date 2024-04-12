@@ -55,6 +55,10 @@ class _CategoriesViewState extends State<CategoriesView> {
                 },
                 columns: [
                   const DataColumn(
+                    label: Expanded(
+                        child: Center(child: Text('Publicada', style: TextStyle(color: Colors.white),))),
+                  ),
+                  const DataColumn(
                       label:
                           Expanded(child: Center(child: Text('Clasificacion', style: TextStyle(color: Colors.white))))),
                   DataColumn(

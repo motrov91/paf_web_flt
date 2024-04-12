@@ -39,11 +39,11 @@ class ProductsDTS extends DataTableSource {
           // onTap: () => launchUrl(Uri.parse(
           //     'https://apipafnjs-production-e7a0.up.railway.app/product/product-pdf/${product.id}')),
           // Producción
-          // onTap: () => launchUrl(Uri.parse(
-          //     'https://apipafnjs-production.up.railway.app/product/product-pdf/${product.id}')),
-          // Local
           onTap: () => launchUrl(Uri.parse(
-          'http://localhost:3000/product/product-pdf/${product.id}')),
+              'https://apipafnjs-production.up.railway.app/product/product-pdf/${product.id}')),
+          // Local
+          // onTap: () => launchUrl(Uri.parse(
+          // 'http://localhost:3000/product/product-pdf/${product.id}')),
           child: Container(
             width: 100,
             height: 25,

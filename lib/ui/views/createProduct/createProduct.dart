@@ -10,6 +10,7 @@ import 'package:paf_web/ui/views/createProduct/widgets/advantages_widget.dart';
 import 'package:paf_web/ui/views/createProduct/widgets/features_widget.dart';
 import 'package:paf_web/ui/views/createProduct/widgets/market_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:spell_check_on_client/spell_check_on_client.dart';
 
 import 'widgets/extra_fields.dart';
 
@@ -20,6 +21,20 @@ class CreateProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     final counter = Provider.of<CountersProvider>(context, listen: false);
     final product = Provider.of<ProductProvider>(context, listen: false);
+
+    final Map<String, String> languages = {
+      'English': 'en',
+      'Portuguese': 'pt',
+      'Español': 'es',
+      'Italiano': 'it',
+      'Deutsch': 'de',
+      'Français': 'fr',
+      'Norsk': 'no', // Norwegian
+      'Svenska': 'sv' // Swedish
+    };
+
+    String language = 'Español';
+    
 
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -38,6 +53,7 @@ class CreateProduct extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Form(
                     key: product.formKey,
+                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

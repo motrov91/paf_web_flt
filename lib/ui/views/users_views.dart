@@ -55,6 +55,7 @@ class _UsersViewState extends State<UsersView> {
                     }),
                 const DataColumn(label: Text('Correo Electrónico', style: TextStyle(color: Colors.white))),
                 const DataColumn(label: Text('Ciudad', style: TextStyle(color: Colors.white))),
+                const DataColumn(label: Text('Teléfono', style: TextStyle(color: Colors.white))),
                 const DataColumn(label: Text('Cargo', style: TextStyle(color: Colors.white))),
                 const DataColumn(label: Text('Acciones', style: TextStyle(color: Colors.white))),
               ],

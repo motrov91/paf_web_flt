@@ -20,7 +20,8 @@ class UsersDatasource extends DataTableSource {
         style: CustomLabels.itemTableText,
       )),
       DataCell(Text(user.email, style: CustomLabels.itemTableText)),
-      DataCell(Text('Cali', style: CustomLabels.itemTableText)),
+      DataCell(Text(user.ciudad ?? 'Ciudad', style: CustomLabels.itemTableText)),
+      DataCell(Text(user.telefono ?? 'Teléfono', style: CustomLabels.itemTableText)),
       DataCell(Text(user.cargo, style: CustomLabels.itemTableText)),
       DataCell(Row(
         children: [
